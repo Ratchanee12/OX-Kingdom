@@ -1,0 +1,60 @@
+body {
+    background-image: url('https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/BG.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    position: relative;
+    font-family: 'Inter', sans-serif;
+}
+
+.container {
+    display: flex;
+    padding-top: 50px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#box-signup {
+    width: 380px;
+    height: 420px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: rgb(246, 246, 246);
+    border-radius: 10px;
+    margin-left: 28%;
+    border: 1px solid #dea06d;
+    color: black;
+}
+
+.title {
+    margin-top: 20px;
+    font-size: 16pt;
+    font-weight: bold;
+    color: #F3AF77;
+}
+
+.btn {
+    width: 340px;
+    text-align: center;
+}
+
+#PicLogo {
+    max-width: 70%;
+    height: auto;
+}
+
+#it {
+    width: 180px;
+    height: 35px;
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 40%;
+}
+
+#footer {
+    text-align: center;
+    color: white;
+    font-size: 10pt;
+    margin-top: 10px;
+}

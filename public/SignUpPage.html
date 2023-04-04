@@ -1,158 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SignUpPage</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
-  rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-</head>
-<style>
-  body{
-      background-image: url('https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/BG.png');
-      background-repeat: no-repeat;
-      background-attachment: fixed; 
-      background-size: 100% 100%;
-      position: relative;
-      font-family: 'Inter', sans-serif;
-  }
-  .container {
-      display: flex;
-      padding-top: 50px;
-      justify-content: center;
-      align-items: center;
-      color: white;
-  }
-  #box-signup {
-      width: 380px;
-      height: 420px;
-      padding: 20px;
-      margin-top: 20px;
-      background-color: rgb(246, 246, 246);
-      border-radius: 10px;
-      margin-left: 28%;
-      border: 1px solid #dea06d;
-      color: black;
-  }
-  .title{
-      margin-top: 20px;
-      font-size: 16pt;
-      font-weight: bold;
-      color: #F3AF77;
-  }
-  .btn{
-      width: 340px;
-      text-align: center;
-  }
-  #PicLogo {
-      width: 800px;
-      height: 120px;
-  }
-  #it{
-      width: 180px;
-      height: 35px;
-      text-align: center; 
-      margin-top: 30px;
-      margin-left: 40%;
-  }
-  #footer {
-      text-align: center;
-      color: white;
-      font-size: 10pt;
-      margin-top: 10px;
-  }
-</style>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-      <nav>
-        <button type="button" id="btnLogout" class="btn btn-outline-light logged-in">
-          <i class="bi bi-box-arrow-right"></i> Logout
-        </button>
-      </nav>
-    </div>
-  </nav>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <div class="container">
+    <title>SignUpPage</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+
+    <link rel="stylesheet" href="styles/signup.css">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <nav>
+            <button type="button" id="btnLogout" class="btn btn-outline-light logged-in">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </nav>
+    </div>
+</nav>
+
+<div class="container">
     <div id="HeadLogo needs-validation">
         <image id="PicLogo" src="https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/LogoOX.png">
-        <div id="box-signup">
-          <h5 class="title" style="text-align: center;">CREATE YOUR ACCOUNT HERE</h5>
+            <div id="box-signup">
+                <h5 class="title" style="text-align: center;">CREATE YOUR ACCOUNT HERE</h5>
                 <form action="" class="" id="signup-f">
-                  <div class="body">
-                    <label class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username-signup" placeholder="Almighty69">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email-signup" placeholder="Email" required>
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password-signup" placeholder="Password" required>
-                    <p id="feedback-msg-signup"></p>
-                  </div>
-                  <button class="btn btn-warning" type="Login">Create account</button>
+                    <div class="body">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username-signup" placeholder="Almighty69">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email-signup" placeholder="Email" required>
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password-signup" placeholder="Password"
+                               required>
+                        <p id="feedback-msg-signup"></p>
+                    </div>
+                    <button class="btn btn-warning" type="Login">Create account</button>
                 </form>
-                    <div id="btnCick" style="margin-top: 10px;">
-                      <button class="btn btn-warning" type="button" onclick="javascript:window.location='index.html';">Already have an account? Login</button>
-                    </div>  
-        </div>
-            <img id="it" src="https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/IT.png">
-    </div>
-  </div>
-  <div id="footer">
-    © 2023. This project is a part of Web Design & Development final project.
-  </div>
-  
-  <div class="modal" id="modal-signup" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Sign up</h5>
-          <button type="button" class="btn-close btn-cancel" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="" class="" id="signup-form">
-          <div class="modal-body mb-3">
-            <input type="text" class="form-control" id="input-username-signup" placeholder="username">
-            <br>
-            <input type="email" class="form-control" id="input-email-signup" placeholder="Email" required>
-            <br>
-            <input type="password" class="form-control" id="input-password-signup" placeholder="Password" required>
-            <p id="feedback-msg-signup"></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Sign up</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+                <div id="btnCick" style="margin-top: 10px;">
+                    <button class="btn btn-warning" type="button" onclick="javascript:window.location='index.html';">
+                        Already have an account? Login
+                    </button>
+                </div>
+            </div>
 
-  <script>
+    </div>
+</div>
+<div id="footer">
+    <img id="it" src="https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/IT.png">
+    <p>© 2023. This project is a part of Web Design & Development final project.</p>
+</div>
+
+<div class="modal" id="modal-signup" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sign up</h5>
+                <button type="button" class="btn-close btn-cancel" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" class="" id="signup-form">
+                <div class="modal-body mb-3">
+                    <input type="text" class="form-control" id="input-username-signup" placeholder="username">
+                    <br>
+                    <input type="email" class="form-control" id="input-email-signup" placeholder="Email" required>
+                    <br>
+                    <input type="password" class="form-control" id="input-password-signup" placeholder="Password"
+                           required>
+                    <p id="feedback-msg-signup"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Sign up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
-      apiKey: "AIzaSyCwvd9LqYBKQWcML7wm7NrpJpt2VodOR2Q",
-      authDomain: "oxkingdom-1028e.firebaseapp.com",
-      databaseURL: "https://oxkingdom-1028e-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "oxkingdom-1028e",
-      storageBucket: "oxkingdom-1028e.appspot.com",
-      messagingSenderId: "411804462751",
-      appId: "1:411804462751:web:255e336c15569b7a53bcaa",
-      measurementId: "G-8GH3DQSQ6H"
+        apiKey: "AIzaSyCwvd9LqYBKQWcML7wm7NrpJpt2VodOR2Q",
+        authDomain: "oxkingdom-1028e.firebaseapp.com",
+        databaseURL: "https://oxkingdom-1028e-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "oxkingdom-1028e",
+        storageBucket: "oxkingdom-1028e.appspot.com",
+        messagingSenderId: "411804462751",
+        appId: "1:411804462751:web:255e336c15569b7a53bcaa",
+        measurementId: "G-8GH3DQSQ6H"
     };
     firebase.initializeApp(firebaseConfig)
-  </script>
-  <script src="insert_data.js"></script>
-  <script src="read_data.js"></script>
-  <script type="text/Javascript" src="auth.js"></script>
+</script>
+<script src="insert_data.js"></script>
+<script src="read_data.js"></script>
+<script type="text/Javascript" src="auth.js"></script>
+<script src="jukebox.js"></script>
 </body>
 </html>
