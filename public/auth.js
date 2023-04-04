@@ -1,4 +1,4 @@
-const signupForm = document.querySelector("#signup-form");
+const signupForm = document.querySelector("#signup-f");
 signupForm.addEventListener("submit", createUser);
 
 const signupFeedback = document.querySelector("#feedback-msg-signup");
@@ -6,8 +6,8 @@ const signupModal = new bootstrap.Modal(document.querySelector("#modal-signup"))
 
 function createUser(event) {
     event.preventDefault();
-    const email = signupForm["input-email-signup"].value;
-    const password = signupForm["input-password-signup"].value;
+    const email = signupForm["email-signup"].value;
+    const password = signupForm["password-signup"].value;
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(() => {
@@ -45,13 +45,13 @@ firebase.auth().onAuthStateChanged((user) => {
     } setupUI(user);
 });
 
-//const btnLogout = document.querySelector("#btnLogout");
-//btnLogout.addEventListener("click", function () {
-//    firebase.auth().signOut();
-//    console.log("Logout completed.")
-//})
+const btnLogout = document.querySelector("#btnLogout");
+btnLogout.addEventListener("click", function () {
+    firebase.auth().signOut();
+    console.log("Logout completed.")
+})
 
-const loginForm = document.querySelector("#login-form");
+const loginForm = document.querySelector("#login-f");
 loginForm.addEventListener("submit", loginUser);
 
 const loginFeedback = document.querySelector("#feedback-msg-login");
@@ -59,8 +59,8 @@ const loginModal = new bootstrap.Modal(document.querySelector("#modal-login"));
 
 function loginUser(event) {
     event.preventDefault();
-    const email = loginForm["input-email-login"].value;
-    const password = loginForm["input-password-login"].value;
+    const email = loginForm["email-login"].value;
+    const password = loginForm["password-login"].value;
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
