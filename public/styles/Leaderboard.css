@@ -1,0 +1,16 @@
+body{
+    background-image: url('https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Winner.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+    position: relative;
+    font-family: 'Inter', sans-serif;
+}
+#returnPage{
+    font-family: 'Playfair Display', serif;
+    margin-top: 30px;
+}
+.bi-arrow-left-circle, h1{
+    color: #F2AA6D;
+    font-weight: 600;
+}

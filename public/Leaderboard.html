@@ -5,8 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>UserPage</title>
-
+  <title>LeaderboardPage</title>
   <!-- Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +21,8 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <!-- add icon bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -32,40 +33,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
   <!-- add link to custom CSS -->
-  <link rel="stylesheet" href="styles/UserPage.css">
+  <link rel="stylesheet" href="styles/Leaderboard.css">
 </head>
-
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-4">
-        <image id="PicLogo" src="Picture/LogoOX.png"></image>
-        <div class="card mb-3" id="card" style="max-width: 540px;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="https://1417094351.rsc.cdn77.org/articles/3452/3451619/chapter/fd6d976fad986b02a376d4af1ca39bed/thumbnail/small.gif?1" class="img-fluid rounded-start">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">Welcomeback</h5>
-                <h3 class="card-text">Johnny</h3>
-                <img src="Picture/win.png">&nbsp;&nbsp;20&nbsp;&nbsp;
-                <img src="Picture/coin.png">&nbsp;&nbsp;1688
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="btn" id="PlayBtn" onclick="window.location='Lobby.html';">♦ PLAY</button><br>
-        <button class="btn" id="leaderboardBtn" onclick="window.location='Leaderboard.html';">♦ LEADERBOARD</button><br>
-        <button class="btn" id="myHero" onclick="window.location='MyHero.html';">♦ MY HERO</button><br>
-        <button class="btn" id="settingBtn" onclick="window.location='Settings.html';">♦ SETTINGS</button><br>
-        <button type="button" id="btnLogout" class="btn btn-outline-light">
-          <i class="bi bi-box-arrow-right"></i> Logout
-        </button>
+      <div id="returnPage">
+        <h1><i type="button" class="bi bi-arrow-left-circle" id="returnicon" onclick="window.location='UserPage.html';"></i> LEADERBOARD</h1>     
       </div>
-      <div class="col-8">
-         <img id="Hero" src="https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/Hero.png">
-      </div>
+      
     </div>
   </div>
   <script>
