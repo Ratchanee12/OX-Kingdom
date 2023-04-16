@@ -1,8 +1,43 @@
 body{
-    background-image: src='Picture/win.png';
+    background-image: url('https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/setting.png');
     background-repeat: no-repeat;
     background-attachment: fixed; 
     background-size: 100% 100%;
     position: relative;
     font-family: 'Inter', sans-serif;
+}
+#returnPage{
+    font-family: 'Playfair Display', serif;
+    margin-top: 50px;
+}
+.bi-arrow-left-circle, h1{
+    color: #F2AA6D;
+    font-weight: 600;
+}
+#settingBox {
+    box-sizing: border-box;
+    display: block;
+    padding: 32px;
+    width: 600px;
+    height: 380px;
+    border: 4px solid #F3AF77;
+    background-color: rgba(130, 24, 28, 0.7);
+    backdrop-filter: blur(2px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 24px;
+    color: #f4a25f;
+    margin-top: 8%;
+    margin-left: 28%;
+}
+.title {
+    font-weight: bold;
+    font-size: 20pt;
+    text-align: left;
+}
+#discardBtn, #saveBtn {
+    width: 250px;
+    color: #f4a25f;
+    border-radius: 5px;
+    border: 2px solid #F3AF77;
+    margin-left: 10px;
 }

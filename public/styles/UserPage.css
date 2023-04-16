@@ -31,12 +31,14 @@ body{
     margin-top: 30px;
 }
 #PlayBtn, #leaderboardBtn, #myHero, #settingBtn {
+    font-family: 'Playfair Display', serif;
     width: 300px;
     height: 60px;
     margin-top: 10px;
     color: #f9ab57;
-    border-color: #fbc790;
     font-weight: bold;
+    font-size: 20pt;
+    text-align: left;
 }
 #btnLogout {
   width: 100px;
