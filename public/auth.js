@@ -1,4 +1,4 @@
-const signupForm = document.querySelector("#signin");
+const signupForm = document.querySelector("#signup-f");
 signupForm.addEventListener("submit", createUser);
 
 const signupFeedback = document.querySelector("#feedback-msg-signup");
