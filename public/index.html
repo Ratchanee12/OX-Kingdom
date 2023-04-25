@@ -27,18 +27,8 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-        <nav>
-            <button type="button" id="btnLogout" class="btn btn-outline-light logged-in">
-                <i class="bi bi-box-arrow-right"></i> Logout
-            </button>
-        </nav>
-    </div>
-</nav>
-
 <!-- add container for the header -->
-<div class="container-fluid text-white py-3">
+<div class="container-fluid text-white py-3 logged-out">
   <div class="row">
       <div class="col text-center">
           <img id="PicLogo" src="https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/LogoOX.png"
@@ -81,7 +71,7 @@
 </div>
 
 <!-- add container for the footer -->
-<div class="container-fluid text-white py-3 mt-auto">
+<div class="container-fluid text-white py-3 mt-auto logged-out">
   <div class="row">
       <div class="col text-center">
           <img id="it" src="https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/IT.png"
@@ -154,8 +144,6 @@
     };
     firebase.initializeApp(firebaseConfig)
   </script>
-  <script src="insert_data.js"></script>
-  <script src="read_data.js"></script>
   <script type="text/Javascript" src="auth.js"></script>
 </body>
 </html>

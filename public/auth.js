@@ -45,12 +45,6 @@ firebase.auth().onAuthStateChanged((user) => {
     } setupUI(user);
 });
 
-const btnLogout = document.querySelector("#btnLogout");
-btnLogout.addEventListener("click", function () {
-    firebase.auth().signOut();
-    console.log("Logout completed.")
-})
-
 const loginForm = document.querySelector("#login-f");
 loginForm.addEventListener("submit", loginUser);
 
@@ -64,11 +58,18 @@ function loginUser(event) {
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
+            const user = firebase.auth().currentUser.uid;
+
             loginFeedback.style = "color: green";
             loginFeedback.innerHTML = "<i class='bi bi-check-circle-fill'></i> login succeed!.";
+            // set new page
+            localStorage.setItem("current-user",user);
+            console.log(user);
+
             setTimeout(() => {
                 loginFeedback.innerHTML = "";
                 loginModal.hide();
+                window.location.assign("UserPage.html");
                 
             }, 1000)
             loginForm.reset();

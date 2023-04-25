@@ -36,7 +36,7 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container logged-in">
     <div class="row">
       <div class="col-4">
         <image id="PicLogo" src="Picture/LogoOX.png"></image>
@@ -59,8 +59,8 @@
         <button class="btn" id="leaderboardBtn" onclick="window.location='Leaderboard.html';">♦ LEADERBOARD</button><br>
         <button class="btn" id="myHero" onclick="window.location='MyHero.html';">♦ MY HERO</button><br>
         <button class="btn" id="settingBtn" onclick="window.location='Settings.html';">♦ SETTINGS</button><br>
-        <button type="button" id="btnLogout" class="btn btn-outline-light">
-          <i class="bi bi-box-arrow-right"></i> Logout
+        <button type="button" id="btnLogout" class="btn btn-outline-light" >
+          <i class="bi bi-box-arrow-right logged-in" id="btnLogout"></i> Logout
         </button>
       </div>
       <div class="col-8">
@@ -83,5 +83,7 @@
     };
     firebase.initializeApp(firebaseConfig)
   </script>
+  <script src="UserPage.js"></script>
+    
 </body>
 </html>
