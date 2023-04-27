@@ -56,3 +56,4 @@ let setupUI = (user) =>{
     //document.querySelector('.rounded-circle').src = user.photoURL;
     
 }
+

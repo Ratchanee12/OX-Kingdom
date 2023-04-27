@@ -28,7 +28,7 @@ let readList = () => {
 
 let addList = () =>{
     var username = document.getElementById("username-signup").value;
-    const currentUser = firebase.auth().currentUser;
+    let currentUser = firebase.auth().currentUser;
     userListRef.child(currentUser.uid).push({
         username: username,
         email: currentUser.email,
@@ -67,3 +67,6 @@ let setupUI = (user) =>{
     //document.querySelector('.rounded-circle').src = user.photoURL;
     //document.querySelector('#userName').innerText = user.displayName;
 }
+
+const createAccount = document.querySelector("#createAccountBtn");
+createAccount.addEventListener("click", addList);

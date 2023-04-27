@@ -30,6 +30,7 @@ btnLogout.addEventListener("click", function () {
     window.location.assign("index.html");
 })
 
+
 let readList = (snapshot) => {
     document.getElementById("main-content").innerHTML = "";
 
@@ -63,7 +64,7 @@ const loginItems = document.querySelectorAll('.logged-in');
 
 let setupUI = (user) =>{
     if (user){
-        const ScoreXORef = firebase.database().ref("ScoreXO");
+        const ScoreXORef = firebase.database().ref("UserList");
         ScoreXORef.on("value", (snapshot) => {
             Checkdata(snapshot);
         })
@@ -77,38 +78,19 @@ let setupUI = (user) =>{
 }
 // สร้าง ScoreXO ใน Firebase เพื่อเก็บคะแนนแต่ละ user
 function Checkdata(snapshot){
-    const ScoreXORef = firebase.database().ref("ScoreXO");
-    const currentUser = firebase.auth().currentUser;
-    const UserUid = currentUser.uid;
-    var ishave = false;
-    
+    const ScoreXORef = firebase.database().ref("UserList");
+    const CurrentUser = firebase.auth().currentUser;
+    const UserUid = CurrentUser.uid;
+    var usersName = "";
     snapshot.forEach((data) => {
         var ScoreRef = data.val();
+        console.log(ScoreRef);
+        usersName = data.val().username;
         ScoreData = ScoreRef;
-        Object.keys(ScoreRef).forEach((key) => {
-            if(key == currentUser.uid){
-                ishave = true;
-            }
-            
-        })
-        
       })
-
-      if(ishave == false){
-        // กำหนดคะแนนเริ่มที่ 0
-        ScoreXORef.child("uid").child(UserUid).update({
-            "Score": 0,
-        });
-        ishave = true;
-    }
-    console.log(ScoreData[currentUser.uid]["Score"]);
-    document.querySelector("#user-profile-name").innerHTML = `${currentUser.email} (${ScoreData[currentUser.uid]["Score"]})`;
-    // if(ScoreXORef.child(UserUid) == undefined){
-    //     ScoreXORef.child(UserUid).push({
-    //         "Score": 0,
-    //     });
-    // }
-    // console.log(ScoreXORef.child(UserUid));
+    console.log(ScoreData[CurrentUser.uid]["score"]);
+    console.log("Username: ", usersName);
+    document.querySelector("#user-profile-name").innerHTML = `${CurrentUser.usersName} (${ScoreData[CurrentUser.uid]["score"]})`;
 }
 
 
@@ -119,3 +101,4 @@ let getList = (user) => {
         });
     }
 }
+
