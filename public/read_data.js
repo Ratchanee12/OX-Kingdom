@@ -1,7 +1,6 @@
-var ref = firebase.database().ref("MyList");
+
 
 let readList = () => {
-    document.getElementById("main-content").innerHTML = "";
 
     const currentUser = firebase.auth().currentUser;
     userListRef.child(currentUser.uid).once("value").then((snapshot) => {
@@ -19,7 +18,6 @@ let readList = () => {
                 </div>`
             ;
             const newElement = document.createRange().createContextualFragment(newDiv);
-            document.getElementById("main-content").appendChild(newElement);
         });
             document.querySelectorAll('button.btn-delete').forEach((btn) => {
                 btn.addEventListener('click', deleteList);

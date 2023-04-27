@@ -1,7 +1,7 @@
 var ref = firebase.database().ref("MyList");
+const userListRef = firebase.database().ref("UserList");
 
 let readList = () => {
-    document.getElementById("main-content").innerHTML = "";
 
     const currentUser = firebase.auth().currentUser;
     userListRef.child(currentUser.uid).once("value").then((snapshot) => {
@@ -19,13 +19,23 @@ let readList = () => {
                 </div>`
             ;
             const newElement = document.createRange().createContextualFragment(newDiv);
-            document.getElementById("main-content").appendChild(newElement);
         });
             document.querySelectorAll('button.btn-delete').forEach((btn) => {
                 btn.addEventListener('click', deleteList);
             });
         });
     };
+
+let addList = () =>{
+    var username = document.getElementById("username-signup").value;
+    const currentUser = firebase.auth().currentUser;
+    userListRef.child(currentUser.uid).push({
+        username: username,
+        email: currentUser.email,
+        score: 0,
+    })
+    console.log("username pushed");
+}
 
 let deleteList = (event) => {
     const id = event.currentTarget.getAttribute('data-id');

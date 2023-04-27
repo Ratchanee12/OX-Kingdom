@@ -224,3 +224,7 @@ p.m-0 {
     align-self: stretch;
     flex-grow: 0;
 }
+
+.form-input input{
+    color:rgb(227, 198, 81);
+}

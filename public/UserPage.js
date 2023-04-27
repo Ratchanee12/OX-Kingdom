@@ -1,10 +1,15 @@
-const CurrentUsername = localStorage.getItem("current-user");
+const currentUsername = localStorage.getItem("current-user");
+var ref = firebase.database().ref("MyList");
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         console.log("User :", user);
-        getList(user);
-    } setupUI(user);
+        console.log("User email:", user.email);
+        //getList(user);
+    } else {
+        console.log("User not found");
+    }
+    setupUI(user);
 });
 
 const btnCancels = document.querySelectorAll(".btn-cancel");
@@ -64,10 +69,6 @@ let setupUI = (user) =>{
         })
         loginItems.forEach((item) => (item.style.display = "inline-block", item.style = "justify-content-center"));
         logoutItems.forEach((item) => (item.style.display = "none"));
-        gameRef.child("game-1").update({
-            ["Login"]: true
-        });
-        gameRef.child("game-1").child("Login").remove();
         
   } else{
         loginItems.forEach((item) => (item.style.display = "none"));
@@ -108,4 +109,13 @@ function Checkdata(snapshot){
     //     });
     // }
     // console.log(ScoreXORef.child(UserUid));
+}
+
+
+let getList = (user) => {
+    if (user) {
+        userListRef.child(user.uid).on("value", (snapshot) => {
+            readList();
+        });
+    }
 }
