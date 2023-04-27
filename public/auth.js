@@ -10,7 +10,7 @@ function createUser(event) {
     const password = signupForm["password-signup"].value;
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((userCredential) => {
             signupFeedback.style = "color: green";
             signupFeedback.innerHTML = "<i class='bi bi-check-circle-fill'></i> Signup Completed.";
             setTimeout(() => {
@@ -19,6 +19,9 @@ function createUser(event) {
                 
             }, 1000)
             signupForm.reset();
+            var user = userCredential.user;
+            console.log(user);
+            addList(user.uid)
         })
         .catch((error) => {
             signupFeedback.style = "color: crimson";
@@ -27,6 +30,20 @@ function createUser(event) {
         })
 
 }
+
+let addList = (uid) =>{
+    var username = document.getElementById("username-signup").value;
+    let currentUser = firebase.auth().currentUser;
+    // userListRef.child(currentUser.uid).update({
+    userListRef.child(uid).update({
+        username: username,
+        email: currentUser.email,
+        score: 0,
+    })
+    console.log("Username: ", username);
+    console.log("username pushed");
+}
+
 const btnCancels = document.querySelectorAll(".btn-cancel");
 btnCancels.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -36,14 +53,6 @@ btnCancels.forEach((btn) => {
         loginFeedback.innerHTML = "";
     })
 
-});
-
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        console.log("User :", user);
-        console.log("User email:", user.email)
-        getList(user);
-    } setupUI(user);
 });
 
 const loginForm = document.querySelector("#login-f");

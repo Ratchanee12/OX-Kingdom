@@ -26,17 +26,6 @@ let readList = () => {
         });
     };
 
-let addList = () =>{
-    var username = document.getElementById("username-signup").value;
-    let currentUser = firebase.auth().currentUser;
-    userListRef.child(currentUser.uid).push({
-        username: username,
-        email: currentUser.email,
-        score: 0,
-    })
-    console.log("username pushed");
-}
-
 let deleteList = (event) => {
     const id = event.currentTarget.getAttribute('data-id');
     const currentUser = firebase.auth().currentUser;
@@ -69,4 +58,4 @@ let setupUI = (user) =>{
 }
 
 const createAccount = document.querySelector("#createAccountBtn");
-createAccount.addEventListener("click", addList);
+// createAccount.addEventListener("click", addList);

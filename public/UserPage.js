@@ -1,11 +1,12 @@
 const currentUsername = localStorage.getItem("current-user");
 var ref = firebase.database().ref("MyList");
+const userListRef = firebase.database().ref("UserList")
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         console.log("User :", user);
-        console.log("User email:", user.email);
-        //getList(user);
+        // console.log("User email:", user.email);
+        getList(user);
     } else {
         console.log("User not found");
     }
@@ -62,26 +63,12 @@ let readList = (snapshot) => {
 const logoutItems = document.querySelectorAll('.logged-out');
 const loginItems = document.querySelectorAll('.logged-in');
 
-let setupUI = (user) =>{
-    if (user){
-        const ScoreXORef = firebase.database().ref("UserList");
-        ScoreXORef.on("value", (snapshot) => {
-            Checkdata(snapshot);
-        })
-        loginItems.forEach((item) => (item.style.display = "inline-block", item.style = "justify-content-center"));
-        logoutItems.forEach((item) => (item.style.display = "none"));
-        
-  } else{
-        loginItems.forEach((item) => (item.style.display = "none"));
-        logoutItems.forEach((item) => (item.style.display = "inline-block"));
-  }
-}
 // สร้าง ScoreXO ใน Firebase เพื่อเก็บคะแนนแต่ละ user
 function Checkdata(snapshot){
     const ScoreXORef = firebase.database().ref("UserList");
     const CurrentUser = firebase.auth().currentUser;
     const UserUid = CurrentUser.uid;
-    var usersName = "";
+    // var usersName = "";
     snapshot.forEach((data) => {
         var ScoreRef = data.val();
         console.log(ScoreRef);
@@ -97,7 +84,8 @@ function Checkdata(snapshot){
 let getList = (user) => {
     if (user) {
         userListRef.child(user.uid).on("value", (snapshot) => {
-            readList();
+            // readList();
+            console.log(snapshot.val());
         });
     }
 }
