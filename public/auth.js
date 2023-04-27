@@ -40,6 +40,7 @@ let addList = (uid) =>{
         email: currentUser.email,
         score: 0,
     })
+    
     console.log("Username: ", username);
     console.log("username pushed");
 }
