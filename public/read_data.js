@@ -47,6 +47,7 @@ const loginItems = document.querySelectorAll('.logged-in');
 
 let setupUI = (user) =>{
     if (user){
+        document.querySelector('#card-text').innerText = user.displayName;
         loginItems.forEach((item) => (item.style.display = "inline-block"));
         logoutItems.forEach((item) => (item.style.display = "none"));
 
@@ -55,5 +56,5 @@ let setupUI = (user) =>{
         logoutItems.forEach((item) => (item.style.display = "inline-block"));
     }
     //document.querySelector('.rounded-circle').src = user.photoURL;
-    //document.querySelector('#userName').innerText = user.displayName;
+    
 }
