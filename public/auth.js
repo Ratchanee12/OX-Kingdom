@@ -8,7 +8,6 @@ function createUser(event) {
     event.preventDefault();
     const email = signupForm["email-signup"].value;
     const password = signupForm["password-signup"].value;
-
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             signupFeedback.style = "color: green";
@@ -18,10 +17,10 @@ function createUser(event) {
                 signupModal.hide();
                 
             }, 1000)
-            signupForm.reset();
             var user = userCredential.user;
             console.log(user);
             addList(user.uid)
+            signupForm.reset();
         })
         .catch((error) => {
             signupFeedback.style = "color: crimson";
@@ -32,7 +31,8 @@ function createUser(event) {
 }
 
 let addList = (uid) =>{
-    var username = document.getElementById("username-signup").value;
+    let username = signupForm["username-signup"].value;
+    console.log("1 Username: ", username);
     let currentUser = firebase.auth().currentUser;
     // userListRef.child(currentUser.uid).update({
     userListRef.child(uid).update({
@@ -41,7 +41,7 @@ let addList = (uid) =>{
         score: 0,
     })
     
-    console.log("Username: ", username);
+    console.log("2 Username: ", username);
     console.log("username pushed");
 }
 
