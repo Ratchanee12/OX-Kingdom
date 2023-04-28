@@ -42,7 +42,7 @@
         <h1><i type="button" class="bi bi-arrow-left-circle" id="returnicon" onclick="window.location='UserPage.html';"></i> BATTLE ARENA</h1>     
       </div>
       <div class="col-12" id="CreateRoon">
-        <input type="text" class="form-control" id="lobby" placeholder="Create Lobby">
+        <input type="text" class="form-control" id="lobby" placeholder="Create Lobby"><button id="roomCreateBtn" ref="#">Create</button>
         <div id="line">
           <span>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&nbsp;&nbsp;or&nbsp;&nbsp;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;</span>
         </div>
@@ -86,5 +86,6 @@
     };
     firebase.initializeApp(firebaseConfig)
   </script>
+  <script src="roomcreate.js"></script>
 </body>
 </html>

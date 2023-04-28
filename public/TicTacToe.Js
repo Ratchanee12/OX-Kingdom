@@ -12,7 +12,18 @@ var playerOHealthBar = document.getElementById('playerOHealthBar');
 var playerXHealthBar = document.getElementById('playerXHealthBar');
 var winner = "";
 
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+console.log(urlParams.get("roomid"));
+
 resetGame();
+
+const roomData = firebase.database().ref(`RoomList/${urlParams.get("roomid")}`)
+
+roomData.on("value", (snapshot) => {
+    console.log(snapshot.val());
+    document.getElementById("roomTitle").innerHTML=`${snapshot.val().LobbyName}`;
+});
 
 function handleClick(id) {
     if (board[id] !== "" || gameOver) {
