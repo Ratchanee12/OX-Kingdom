@@ -33,7 +33,6 @@ let getList = (user) => {
             let currentScore = snapshot.val().score;
             let currentCoin = snapshot.val().coin;
             document.querySelector("#user-profile-name").innerText = `${currentUsername} (${currentScore})`
-            document.querySelector("#user-profile-coin").innerHTML = `&nbsp;&nbsp;${currentCoin}`
         });
     }   
 } 
