@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+    <style>
+        #currentTurn{
+            text-align: center;
+            font-size: 30px;
+            color:black;
+        }
+        table {
+            border-collapse: collapse;
+            margin: auto;
+        }
+        td {
+            border: 1px solid black;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 30px;
+        }
+        #healthBar{
+            display: inline-block;
+        }
+        #playerOHealth, #playerXHealth {
+            position: relative;
+            height: 30px;
+            width: 250px;
+            border: rgb(0, 0, 0) 3px solid;
+            border-radius: 3px;
+            margin-right: 20px;
+            display: inline-block;
+        }
+
+        #playerOHealthBar, #playerXHealthBar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tic Tac Toe</h1>
+    <div id="healthBar">
+    <h3>Player O</h3>
+    <div id="playerOHealth">
+        <div id="playerOHealthBar"></div>
+    </div>
+    <h3>Player X</h3>
+	<div id="playerXHealth">
+        <div id="playerXHealthBar" ></div>
+    </div>
+    </div>
+    <div id="currentTurn"></div>
+    <table>
+        </tr>
+        <tr>
+            <td id="0" onclick="handleClick(0)"></td>
+            <td id="1" onclick="handleClick(1)"></td>
+            <td id="2" onclick="handleClick(2)"></td>
+        </tr>
+        <tr>
+            <td id="3" onclick="handleClick(3)"></td>
+            <td id="4" onclick="handleClick(4)"></td>
+            <td id="5" onclick="handleClick(5)"></td>
+        </tr>
+        <tr>
+            <td id="6" onclick="handleClick(6)"></td>
+            <td id="7" onclick="handleClick(7)"></td>
+            <td id="8" onclick="handleClick(8)"></td>
+        </tr>
+    </table>
+    <br>
+    <div id="message"></div>
+    <div id="roundresult"></div>
+    <br>
+    <button id="attack" onclick="attackAction()">Attack</button>
+    <button id="heal" onclick="healAction()">Heal</button>
+    <button onclick="resetGame()">Reset Game</button>
+    <script src="TicTacToe.Js"></script>
+</body>
+</html>
