@@ -27,7 +27,6 @@ function createUser(event) {
             signupFeedback.innerHTML = `<i class='bi bi-exclamation-triangle-fill'></i> ${error.message}`
             signupForm.reset();
         })
-
 }
 
 let addList = (uid) =>{
@@ -39,6 +38,9 @@ let addList = (uid) =>{
         username: username,
         email: currentUser.email,
         score: 0,
+        gamewin: 0,
+        numberofgame: 0,
+        coin: 0,
     })
     
     console.log("2 Username: ", username);
