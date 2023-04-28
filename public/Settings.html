@@ -43,13 +43,13 @@
       </div>
       <div id="settingBox">
         <h5 class="title">Display</h5>
-        <p>Fullscreen <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></p>
+        <p>Fullscreen <input class="form-check-input" type="checkbox" value="" id="fullscreentoggle"></p>
         <h5 class="title">Audio</h5>
-        <p>Music <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <input type="range" class="form-range" id="customRange1">
+        <p>Music <input class="form-check-input" type="checkbox" value="" id="enableMusic">
+          <input type="range" class="form-range" id="musicVolume">
         </p> 
-        <p>SFX <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <input type="range" class="form-range" id="customRange1">
+        <p>SFX <input class="form-check-input" type="checkbox" value="" id="enableSFX">
+          <input type="range" class="form-range" id="sfxVolume">
         </p>
         <div class="btn-group">
           <button class="btn btn-outline-light" type="button" id="discardBtn">Discard</button>
@@ -72,5 +72,6 @@
     };
     firebase.initializeApp(firebaseConfig)
   </script>
+  <script src="Settings.js"></script>
 </body>
 </html>
