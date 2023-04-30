@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>LobbyPage</title>
+  <title>ChooseCharacter</title>
   <!-- Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,15 +39,23 @@
   <div class="container">
     <div class="row">
       <div id="returnPage">
-        <h1><i type="button" class="bi bi-arrow-left-circle" id="returnicon" onclick="window.location='UserPage.html';"></i> BATTLE ARENA</h1>     
+        <h1><i type="button" class="bi bi-arrow-left-circle" id="returnicon"></i> Choose Character</h1>     
+        <h2 id="roomName"></h2>
       </div>
-      <div class="col-12" id="CreateRoon">
-        <input type="text" class="form-control" id="lobby" placeholder="Create Lobby"><button id="roomCreateBtn" ref="#">Create</button>
-        <div id="line">
-          <span>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&nbsp;&nbsp;or&nbsp;&nbsp;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;</span>
+      <div class="col">
+      <div id="Username-PlayerO">Player O: </div>
+      <h1 id="PlayercharacterO">Waiting</h1>
+      </div>
+      <div class="col">
+      <div id="Username-PlayerO">Player X: </div>
+      <h1 id="PlayercharacterX">Waiting</h1>
+      </div>
+      <div class="row">
+        <div class="col">
+            <button class="button btn-light m-0 p-2" id="character-button" data-character="Knight">Knight</button>
         </div>
-        <div id="room">
-          
+        <div class="col">
+            <button class="button btn-light m-0 p-2" id="character-button" data-character="Mage">Mage</button>
         </div>
       </div>
     </div>
@@ -66,6 +74,6 @@
     };
     firebase.initializeApp(firebaseConfig)
   </script>
-  <script src="roomcreate.js"></script>
+  <script src="choosecharacter.js"></script>
 </body>
 </html>
