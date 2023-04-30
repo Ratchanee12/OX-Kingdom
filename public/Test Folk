@@ -1,0 +1,209 @@
+const RoomRef = firebase.database().ref("Room");
+const UserList = firebase.database().ref("UserList");
+var currentUser;
+var currentKeyRoom;
+
+const btnBack = document.querySelector('#btnBack')
+btnBack.addEventListener('click', function(){
+    
+    RoomRef.once('value').then((snapshot) => {
+        snapshot.forEach((datas) => {
+            var GameInfo = datas.val()
+            console.log(GameInfo)
+            if (currentUser.email == GameInfo['emailX']) {
+                RoomRef.child(`${currentKeyRoom}`).update({
+                    userX: "",
+                    emailX: "",
+                })
+            }else if(currentUser.email == GameInfo['emailO']){
+                RoomRef.child(`${currentKeyRoom}`).update({
+                    userO: "",
+                    emailO: "",
+                })
+            }
+        });
+    });
+   
+    window.history.back()
+})
+
+
+firebase.auth().onAuthStateChanged((user) => {
+    currentUser = user;
+});
+
+function OnGameRoomInfo(){
+    UserList.child(`${currentUser.uid}`).once('value').then((snapshot) => {
+        var UserInfo = snapshot.val()
+        RoomRef.child(UserInfo[`gamekey`]).once('value', (snapshot) => {
+            console.log(snapshot.val())
+            var GameInfo = snapshot.val();
+            if (UserInfo['username'] == GameInfo['userO'] || UserInfo['username'] == GameInfo['userX'] ) {
+                currentKeyRoom = UserInfo[`gamekey`];
+                Object.keys(GameInfo).forEach((key) => {
+                    console.log(key)
+                    switch (key) {
+                        case "userX":
+                            document.querySelector('#userX').textContent = GameInfo[`${key}`]
+                            break;
+                        case "userO":
+                            document.querySelector('#userO').textContent = GameInfo[`${key}`]
+                            break;
+                        }
+                    })
+                }
+            })
+        });
+}
+
+RoomRef.on('value', (snapshot) => {
+    console.log('Welcome')
+    if (currentUser) {
+        OnGameRoomInfo()
+    }
+});
+
+var turn = 'O'
+var win = false;
+var winner = '';
+var blocks = document.querySelectorAll('.table-block');
+var elmes = document.querySelectorAll('.elemental');
+// Add new 
+var typeE = '';
+var placeE = '';
+// 
+var turnObject = document.getElementById('turn');
+var timeHTML = document.getElementById('times');
+var count = 0;
+//new var
+var cd;
+var times = 15;
+
+newGame();
+
+// Add NEW
+for (var elme of elmes) {
+    elme.onclick = function (event) {
+       console.log(event.target.dataset.elemental)
+       typeE = event.target.dataset.elemental;
+       if (typeE == 'fire') {
+        placeE = 'ice';
+        event.target.style.opacity = "1";
+        document.querySelector('#ice').style.opacity = "0.2";
+        document.querySelector('#water').style.opacity = "0.2";
+       }
+       else if(typeE == 'water'){
+        placeE = 'fire';
+        event.target.style.opacity = "1";
+        document.querySelector('#ice').style.opacity = "0.2";
+        document.querySelector('#fire').style.opacity = "0.2";
+       }
+       else if(typeE == 'ice'){
+        placeE = 'water';
+        event.target.style.opacity = "1";
+        document.querySelector('#water').style.opacity = "0.2";
+        document.querySelector('#fire').style.opacity = "0.2";
+       }
+    }
+}
+// 
+
+
+for (var block of blocks) {
+    // 1. Modify the code here to check click event on each block
+    console.log(block.textContent);
+    block.onclick = function (event) {
+        // modify the condition here to continue the game play as long as there is no winner
+        if ((event.target.textContent == '' || event.target.dataset.elemental == placeE) && winner == '' && typeE != '') {
+            console.log(block.textContent);
+            // 4. Modify the code here to check whether the clicking block is avialable.
+            event.target.dataset.elemental = typeE;            
+            event.target.innerHTML = turn;
+            count +=1
+            clearInterval(cd);
+            times = 15
+            checkResult();
+        }   
+    }
+}
+
+
+function checkResult() {
+    // 2. Modify the code here to check whether someone win the game
+
+    for(let i = 0;i < 9;i++){
+        if((blocks[i].textContent== turn) && (blocks[i+1].textContent== turn) && (blocks[i+2].textContent== turn)){
+            win = true;
+            console.log('Hi')
+        }
+        i+=2
+    }
+    for(let i = 0;i < 3;i++){
+        if((blocks[i].textContent== turn) && (blocks[i+3].textContent== turn) && (blocks[i+6].textContent== turn)){
+            win = true;
+        }
+    }
+
+    if((blocks[0].textContent== turn) && (blocks[4].textContent== turn) && (blocks[8].textContent== turn)){
+        win = true
+    }
+    if((blocks[2].textContent== turn) && (blocks[4].textContent== turn) && (blocks[6].textContent== turn)){
+        win = true
+    }
+    if (win == true){
+        //Game end and someone wins the game
+        winner = turn;
+        turnObject.innerHTML = "Game win by " + winner;
+        timeHTML.innerHTML = `<h1 style = " text-align: center;">TIME</h1>`
+        clearInterval(cd);
+        document.querySelector('#ice').style.opacity = "1";
+        document.querySelector('#water').style.opacity = "1";
+        document.querySelector('#fire').style.opacity = "1";
+    } else if (count==9) {
+        // Game end and no-one wins the game
+        turnObject.innerHTML = "Game draw";
+        timeHTML.innerHTML = `<h1 style = " text-align: center;">TIME</h1>`
+        clearInterval(cd);
+        document.querySelector('#ice').style.opacity = "1";
+        document.querySelector('#water').style.opacity = "1";
+        document.querySelector('#fire').style.opacity = "1";
+    } else {
+        // The game is on going
+        turn = turn === 'O' ? 'X' : 'O';
+        turnObject.innerHTML = "Turn: " + turn;
+        times = 15
+        typeE = ''
+        document.querySelector('#ice').style.opacity = "1";
+        document.querySelector('#water').style.opacity = "1";
+        document.querySelector('#fire').style.opacity = "1";
+        clearInterval(cd);
+        cd = setInterval(countdowns ,1000);
+    }
+}
+
+function newGame() {
+    turn = 'O';
+    turnObject.innerHTML = "Turn: " + turn;
+    winner = '';
+    win = false;
+    // 3. Modify the code here to reset the game to initial state
+    count = 0;
+    for(let i = 0;i<9;i++){
+        blocks[i].textContent = ''
+    }
+    clearInterval(cd);
+    timeHTML.innerHTML = `<h1 style = " text-align: center;">TIME</h1>`
+}
+
+function countdowns () {
+    console.log(times)
+    console.log('add')
+    timeHTML.innerHTML = `<h1 style = " text-align: center;">${times}</h1>`
+    times -= 1;
+   if (times < 0) {
+     clearInterval(cd);
+     checkResult();
+     console.log('Hi')
+   }
+}
+// window.onload =
