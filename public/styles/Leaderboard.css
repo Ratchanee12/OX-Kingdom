@@ -14,6 +14,10 @@ body{
     color: #F2AA6D;
     font-weight: 600;
 }
+#IconLead{
+    width: 210px;
+    height: 100px;
+}
 #LaederboardBox {
     box-sizing: border-box;
 
@@ -39,4 +43,36 @@ body{
     flex-grow: 0;
 
     color: #F3AF77;
+    background: rgba(75, 0, 0, 0.7);
+}
+#crown1{
+    width: 35px;
+    height: 35px;
+    border: 2px solid #ff2c2c;
+}
+#crown2{
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ff2c2c;
+}
+#crown3{
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ff2c2c;
+}
+#number{
+    font-weight: 600;
+    width: 50px;
+    border: 2px solid #777df3;
+}
+#ShowScore{
+    border: 5px solid #00ffc3;
+}
+#UsernameBoard{
+    width: 300px;
+    border: 2px solid #F3AF77;
+    border-radius: 10px;
+}
+#Top{
+    display: flex;
 }
