@@ -14,6 +14,10 @@ let pictureCharacterO = document.getElementById("PlayercharacterO");
 
 let pictureCharacterX = document.getElementById("PlayercharacterX");
 
+let usernamePlayerO = document.getElementById("Username-PlayerO");
+
+let usernamePlayerX = document.getElementById("Username-PlayerX");
+
 characterBtn.forEach(el => {
     console.log(el.dataset.character);
     let character = el.dataset.character;
@@ -42,9 +46,9 @@ function chooseCharacter(character){
                 CharacterX: character,
             })
             if(snapshot.val().CharacterX == "Knight"){
-                pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+                pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
             } else if (snapshot.val().CharacterX == "Mage"){
-                pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+                pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
             }
         }
     });
@@ -55,37 +59,55 @@ roomData.on("value", (snapshot) => {
     let currentWatcher = firebase.auth().currentUser;
     let uiduserO = snapshot.val().UserO;
     let uiduserX = snapshot.val().UserX;
-    let usernameplayerO = "";
-    let usernameplayerX = "";
+    let usernameplayerO ;
+    let usernameplayerX ;
     console.log("UidofUserO: ", uiduserO);
     console.log("UidofUserX: ", uiduserX);
     console.log("CurrentWatcher: ", currentWatcher.uid)
     document.getElementById("roomName").innerHTML = snapshot.val().LobbyName;
     if (currentWatcher.uid == snapshot.val().UserO || currentWatcher.uid == snapshot.val().UserX){
-        // if(currentWatcher.uid == uiduserO){
-        //     userList.child(uiduserO).once("value", userdata => {
-        //         document.getElementById("Username-PlayerO").innerHTML = `Player O: ${userdata.val().username}`;
-        //     }) 
-        // }else if(currentWatcher.uid == uiduserX){
-        //         userList.child(uiduserX).once("value", userdata => {
-        //             document.getElementById("Username-PlayerX").innerHTML = `Player X: ${userdata.val().username}`;
-        //         })
-        // }
-
-        if(currentWatcher.uid == uiduserO){
-            userList.child(uiduserO).once("value", userdata => {
-                console.log(userdata.val().username);
-                usernameplayerO = userdata.val().username;
-            }) 
-        }else if(currentWatcher.uid == uiduserX){
-            userList.child(uiduserX).once("value", userdata => {
-                usernameplayerX = userdata.val().username;
-            })
+        if(snapshot.val().UserX !=""){
+            if (snapshot.val().UserO != ""){
+                userList.child(uiduserO).once("value", userdata => {
+                    usernameplayerO = `Player O: ${userdata.val().username}`
+                    console.log("Username O: ", userdata.val().username);
+                    document.getElementById("Username-PlayerO").innerHTML = usernameplayerO;
+                    document.getElementById("currentRoomState").innerHTML = "Both Player present";
+                    pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+                    pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
+                 }) 
+            } else if (snapshot.val().UserO == ""){
+                usernamePlayerO = "Waiting...";
+                document.getElementById("Username-PlayerO").innerHTML = usernameplayerO;
+                document.getElementById("currentRoomState").innerHTML = "Waiting for Player O";
+                    pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+                    pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
+            } 
         }
-        document.querySelector("Username-PlayerO").innerHTML = `Player O: ${usernameplayerO}`;
-        document.querySelector("Username-PlayerX").innerHTML = `Player X: ${usernameplayerX}`; 
-
-
+        if(snapshot.val().UserO !=""){
+                if (snapshot.val().UserX != ""){
+                    userList.child(uiduserX).once("value", userdata => {
+                        usernameplayerX = `Player X: ${userdata.val().username}`
+                        document.getElementById("Username-PlayerX").innerHTML = usernameplayerX;
+                        document.getElementById("currentRoomState").innerHTML = "Both Player present";
+                        pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+                        pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
+                     }) 
+                } else if (snapshot.val().UserX == ""){
+                    usernamePlayerX = "Waiting...";
+                    document.getElementById("Username-PlayerX").innerHTML = usernameplayerX;
+                    document.getElementById("currentRoomState").innerHTML = "Waiting for Player X";
+                    pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+                    pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
+                }
+                pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+                pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
+        }
+             pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+             pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
+        if(snapshot.val().CharacterO != "" && snapshot.val().characterX){
+            checkReady();
+        }
     }else{
         window.location= "Lobby.html";
     }
@@ -133,6 +155,7 @@ function returntoLobby(){
 
 function checkReady(){
     var playerReady=false;
+    console.log("Player Ready")
     roomData.once("value", (snapshot) => {
         if (snapshot.val().CharacterO != "" && snapshot.val().CharacterX != ""){
             playerReady = true
