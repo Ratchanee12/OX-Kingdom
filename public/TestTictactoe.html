@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> 
+  <title>63070099</title>
+  <style>
+    #currentTurn{
+        text-align: center;
+        font-size: 30px;
+        color:black;
+    }
+    table {
+        border-collapse: collapse;
+        margin: auto;
+    }
+    td {
+        border: 1px solid black;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        font-size: 30px;
+    }
+    #healthBar{
+        display: inline-block;
+    }
+    #playerOHealth, #playerXHealth {
+        position: relative;
+        height: 30px;
+        width: 250px;
+        border: rgb(0, 0, 0) 3px solid;
+        border-radius: 3px;
+        margin-right: 20px;
+        display: inline-block;
+    }
+
+    #playerOHealthBar, #playerXHealthBar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: lightgreen;
+    }
+</style>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+     <div class="container-fluid">
+        <a href="#" class="navbar-brand">Lab 11 – Basic Tic-Tac-Toe</a>
+      <nav>
+          <button type="button" id="btnSignup" class="btn btn-outline-light logged-out" data-bs-toggle="modal" data-bs-target="#modal-signup">
+            <i class="bi bi-person-plus-fill"></i> Sign Up
+          </button>
+          <button type="button" id="btnLogin" class="btn btn-outline-light logged-out" data-bs-toggle="modal" data-bs-target="#modal-login">
+            <i class="bi bi-person-plus-fill"></i> login
+          </button>
+          <span class="logged-in">
+            <span id="user-profile-name" class="display-name text-white"></span>
+          </span>
+          <button type="button" id="btnLogout" class="btn btn-outline-light logged-in">
+            <i class="bi bi-person-plus-right"></i> Logout
+          </button>
+      </nav>
+    </div>
+  </nav>
+  <!-- <div class="container p-5 justify-content-center logged-in">
+    <div class="d-flex">
+      <div class="me-3">
+        <h1>My List</h1>
+      </div>
+      <button type="submit" class="btn btn-primary" onclick="readList()">
+        <i class="bi bi-arrow-clockwise"> update </i>
+      </button>
+    </div>
+    <div id="main-content">
+      
+    </div>
+  </div>
+  <hr>
+  <div class="container p-5 justify-content-center logged-in">
+    <div>
+      <h4>Add List</h4>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">
+        <i class="bi bi-person"></i>
+      </span>
+      <input type="text" class="form-control" id="UsernameInput" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+      <button class="btn btn-success" type="submit" onclick="addList()">Submit</button>
+    </div>
+  </div> -->
+
+  <h1 class="display-1 text-center">Tic-Tac-Toe</h1>
+  <div class="container logged-in">
+    <form class="form-inline row">
+    <div class="form-group mb-2 row col-10">
+        <h1 id="roomTitle">Tic Tac Toe</h1>
+        <div id="healthBar">
+        <h3>Player O</h3>
+        <div id="playerOHealth">
+            <div id="playerOHealthBar"></div>
+        </div>
+        <h3>Player X</h3>
+        <div id="playerXHealth">
+            <div id="playerXHealthBar" ></div>
+        </div>
+        </div>
+        <div id="currentTurn"></div>
+      </div>
+    </form>
+  <div class="container d-flex justify-content-center mb-2">
+    <button type="button" id="btnStartGame" class="btn btn-success mx-1 logged-in">START GAME</button>
+    <button type="button" id="btnTerminateGame" class="btn btn-warning mx-1 logged-in">END GAME</button>
+  </div>
+ <h1 class="display-6 text-center" id="GameState"><b>Waiting for player...</b></h1>
+
+<div class="container mb-2">
+  <div class="row" id="row-1">
+    <div class="col border justify-content-center align-items-center table-col" id="row-1-col-1">
+      <p class="display-4 text-center"></p>
+    </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-1-col-2">
+      <p class="display-4 text-center"></p>
+    </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-1-col-3">
+      <p class="display-4 text-center"></p>
+    </div>
+  </div>
+  <div class="row" id="row-2">
+    <div class="col border justify-content-center align-items-center table-col" id="row-2-col-1">
+      <p class="display-4 text-center"></p>
+    </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-2-col-2">
+      <p class="display-4 text-center"></p>
+    </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-2-col-3">
+      <p class="display-4 text-center"></p>
+    </div>
+  </div>
+  <div class="row" id="row-3">
+    <div class="col border justify-content-center align-items-center table-col" id="row-3-col-1">
+      <p class="display-4 text-center"></p>
+    </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-3-col-2">
+      <p class="display-4 text-center"></p>
+    </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-3-col-3">
+      <p class="display-4 text-center"></p>
+    </div>
+  </div>
+</div>
+
+  <div class="modal" id="modal-login" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Login</h5>
+          <button type="button" class="btn-close btn-cancel" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" class="" id="login-form">
+          <div class="modal-body mb-3">
+            <input  type="email" class="form-control" id="input-email-login" placeholder="Email" required>
+            <br>
+            <input  type="password" class="form-control" id="input-password-login" placeholder="Password" required>
+            <p id="feedback-msg-login"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-signup" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Signup</h5>
+          <button type="button" class="btn-close btn-cancel" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" class="" id="signup-form">
+          <div class="modal-body mb-3">
+            <input  type="email" class="form-control" id="input-email-signup" placeholder="Email" required>
+            <br>
+            <input  type="password" class="form-control" id="input-password-signup" placeholder="Password" required>
+            <p id="feedback-msg-signup"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Signup</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+</body>
+<script>
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAneHtvEFcULrhfcNb6xIOt4QfLmB_9PXE",
+    authDomain: "web-design-javascript-la-fc8a7.firebaseapp.com",
+    databaseURL: "https://web-design-javascript-la-fc8a7-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "web-design-javascript-la-fc8a7",
+    storageBucket: "web-design-javascript-la-fc8a7.appspot.com",
+    messagingSenderId: "1066265606440",
+    appId: "1:1066265606440:web:90d5b418d48502bce1b81d",
+    measurementId: "G-G0CS5W05N0"
+  };
+  firebase.initializeApp(firebaseConfig)
+</script>
+<script src="auth.js"></script>
+<script src="insert_data.js"></script>
+<script src="read_data.js"></script>
+<script src="game.js"></script> 
+</html>

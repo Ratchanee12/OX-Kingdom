@@ -1,3 +1,5 @@
+let timeHTML = document.getElementById("countdownChar");
+
 const characterBtn = document.querySelectorAll("#character-button");
 
 const roomRef = firebase.database().ref("RoomList");
@@ -6,13 +8,18 @@ const userList = firebase.database().ref("UserList");
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-console.log(urlParams.get("roomid"));
+console.log("UrlParams: ",urlParams.get("roomid"));
 
 const roomData = firebase.database().ref(`RoomList/${urlParams.get("roomid")}`);
 
 let pictureCharacterO = document.getElementById("PlayercharacterO");
 
 let pictureCharacterX = document.getElementById("PlayercharacterX");
+
+let usernamePlayerO = document.getElementById("Username-PlayerO");
+
+let usernamePlayerX = document.getElementById("Username-PlayerX");
+
 
 characterBtn.forEach(el => {
     console.log(el.dataset.character);
@@ -42,9 +49,9 @@ function chooseCharacter(character){
                 CharacterX: character,
             })
             if(snapshot.val().CharacterX == "Knight"){
-                pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+                pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
             } else if (snapshot.val().CharacterX == "Mage"){
-                pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+                pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
             }
         }
     });
@@ -55,37 +62,81 @@ roomData.on("value", (snapshot) => {
     let currentWatcher = firebase.auth().currentUser;
     let uiduserO = snapshot.val().UserO;
     let uiduserX = snapshot.val().UserX;
-    let usernameplayerO = "";
-    let usernameplayerX = "";
+    let usernameplayerO ;
+    let usernameplayerX ;
     console.log("UidofUserO: ", uiduserO);
     console.log("UidofUserX: ", uiduserX);
     console.log("CurrentWatcher: ", currentWatcher.uid)
     document.getElementById("roomName").innerHTML = snapshot.val().LobbyName;
+    if(snapshot.val().CharacterO == "" || snapshot.val().CharacterO == undefined){
+        pictureCharacterO.innerHTML = `Waiting..`
+    }else{
+        pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+    }
+    if(snapshot.val().CharacterX == "" || snapshot.val().CharacterX == undefined){
+        pictureCharacterX.innerHTML = `Waiting..`
+    }else{
+        pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
+    }
     if (currentWatcher.uid == snapshot.val().UserO || currentWatcher.uid == snapshot.val().UserX){
-        // if(currentWatcher.uid == uiduserO){
-        //     userList.child(uiduserO).once("value", userdata => {
-        //         document.getElementById("Username-PlayerO").innerHTML = `Player O: ${userdata.val().username}`;
-        //     }) 
-        // }else if(currentWatcher.uid == uiduserX){
-        //         userList.child(uiduserX).once("value", userdata => {
-        //             document.getElementById("Username-PlayerX").innerHTML = `Player X: ${userdata.val().username}`;
-        //         })
-        // }
-
-        if(currentWatcher.uid == uiduserO){
-            userList.child(uiduserO).once("value", userdata => {
-                console.log(userdata.val().username);
-                usernameplayerO = userdata.val().username;
-            }) 
-        }else if(currentWatcher.uid == uiduserX){
-            userList.child(uiduserX).once("value", userdata => {
-                usernameplayerX = userdata.val().username;
-            })
+        if(uiduserO !=""){
+            console.log(uiduserX.username)
+                if (uiduserX != ""){
+                    userList.child(uiduserX).once("value", userdata => {
+                        usernameplayerX = `Player X: ${userdata.val().username}`;
+                        document.getElementById("Username-PlayerX").innerHTML = usernameplayerX;
+                        document.getElementById("currentRoomState").innerHTML = "Both Player present";
+                     }); 
+                } 
+                else if (uiduserX == ""){
+                    console.log("Missing PlayerX");
+                    userList.child(uiduserO).once("value", userdata => {
+                        usernameplayerO = `Player O: ${userdata.val().username}`;
+                        console.log("Username O: ", userdata.val().username);
+                        document.getElementById("Username-PlayerO").innerHTML = usernameplayerO;
+                        });
+                    document.getElementById("Username-PlayerX").innerHTML = "Player X: Waiting...";
+                    document.getElementById("currentRoomState").innerHTML = "Waiting for Player X";
+                }
         }
-        document.querySelector("Username-PlayerO").innerHTML = `Player O: ${usernameplayerO}`;
-        document.querySelector("Username-PlayerX").innerHTML = `Player X: ${usernameplayerX}`; 
 
-
+        if(uiduserX !=""){
+            if (uiduserO != ""){
+                userList.child(uiduserO).once("value", userdata => {
+                    usernameplayerO = `Player O: ${userdata.val().username}`;
+                    console.log("Username O: ", userdata.val().username);
+                    document.getElementById("Username-PlayerO").innerHTML = usernameplayerO;
+                    document.getElementById("Username-PlayerX").innerHTML = usernameplayerX;
+                    document.getElementById("currentRoomState").innerHTML = "Both Player present";
+                 }) 
+            }else if (uiduserO == ""){
+                console.log("Missing PlayerO");
+                userList.child(uiduserX).once("value", userdata => {
+                    usernameplayerX = `Player X: ${userdata.val().username}`;
+                    console.log("Username X: ", userdata.val().username);
+                    document.getElementById("Username-PlayerX").innerHTML = usernameplayerX;
+                    });
+                document.getElementById("Username-PlayerO").innerHTML = "Player O: Waiting...";
+                document.getElementById("currentRoomState").innerHTML = "Waiting for Player O";
+            } 
+        }
+        
+        console.log("snapshot",snapshot.val());
+        console.log(snapshot.val().CharacterO);
+        console.log(snapshot.val().CharacterX);
+        //check if both player choose a character if yes thats mean they are ready
+        if(snapshot.val().CharacterX && snapshot.val().CharacterO){
+            if (snapshot.val().CharacterO != "" && snapshot.val().CharacterX != ""){
+                //begin Count Down
+                clearInterval(cd);
+                cd = setInterval(countdowns,1000);
+            } 
+            if(snapshot.val().CharacterO == "" || snapshot.val().CharacterX == ""){
+                timeHTML.innerHTML = "Time";
+                clearInterval(cd);
+            }
+        }
+        
     }else{
         window.location= "Lobby.html";
     }
@@ -132,11 +183,28 @@ function returntoLobby(){
 }
 
 function checkReady(){
-    var playerReady=false;
+    var playerReady = false;
+    console.log("Check Player Ready")
     roomData.once("value", (snapshot) => {
         if (snapshot.val().CharacterO != "" && snapshot.val().CharacterX != ""){
-            playerReady = true
-            //window.location = "Tictacttoe.html";
+            playerReady = true;
+            console.log("Both Player Ready");
+           // window.location = `Tictactoe.html?roomid=${getRoom}`;
         }
     });
+}
+
+var times = 10;
+var cd;
+
+function countdowns () {
+    console.log(times)
+    console.log('add')
+    timeHTML.innerHTML = `<h1 style = " text-align: center;">${times}</h1>`
+    times -= 1;
+    if (times < 0) {
+        clearInterval(cd);
+        console.log('Change HTML Page')
+        window.location = `NewTictac.html?roomid=${urlParams.get("roomid")}`;
+    }
 }
