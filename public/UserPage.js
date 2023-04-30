@@ -34,8 +34,8 @@ let getList = (user) => {
             let currentCoin = snapshot.val().coin;
             let currentWin = snapshot.val().gamewin;
             document.querySelector("#user-profile-name").innerText = `${currentUsername} (${currentScore})`
-            document.querySelector("#user-coin").innerText = `${currentCoin}`
-            document.querySelector("#user-win").innerText = `${currentWin}`
+            document.querySelector("#user-coin").innerText = `Coin : ${currentCoin}`
+            document.querySelector("#user-win").innerText = `User win : ${currentWin}`
         });
     }   
 } 

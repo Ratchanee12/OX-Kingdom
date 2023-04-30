@@ -37,117 +37,33 @@
 </head>
 <body>
   <div class="container">
+
     <div class="row">
       <div id="returnPage">
         <h1><i type="button" class="bi bi-arrow-left-circle" id="returnicon" onclick="window.location='UserPage.html';"></i> LEADERBOARD</h1>     
       </div>
-      <div class="col text-center" id="LaederboardBox">
+      <div class="col-3">
+
+      </div>
+      <div class="col" id="LaederboardBox">
           <img id="IconLead" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Icon_Leaderboard.png"
-               class="img-fluid mx-auto d-block" alt="Logo">
-          <div class="col" id="ShowScore">
-            <div id="Top">
-              <img id="crown1" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Crown.png"
-              class="img-fluid mx-auto d-block" >
-              <h3 id="number">1</h3>
-              <div id="UsernameBoard">
-                <p id="user-profile-name">Almighty69 |</p>
-                <p id="user-win">244</p>
-              </div>
-            </div>
-
-            <div id="Top">
-              <img id="crown2" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Crown.png"
-              class="img-fluid mx-auto d-block" >
-              <h3 id="number">2</h3>
-              <div id="UsernameBoard">
-                <p id="user-profile-name">Almighty69 |</p>
-                <p id="user-win">244</p>
-              </div>
-            </div>
-
-            <div id="Top">
-              <img id="crown2" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Crown.png"
-              class="img-fluid mx-auto d-block" >
-              <h3 id="number">3</h3>
-              <div id="UsernameBoard">
-                <p id="user-profile-name">Almighty69 |</p>
-                <p id="user-win">244</p>
-              </div>
-            </div>
-
-            <div id="Top">
-              <img id="crown2" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Crown.png"
-              class="img-fluid mx-auto d-block" >
-              <h3 id="number">4</h3>
-              <div id="UsernameBoard">
-                <p id="user-profile-name">Almighty69 |</p>
-                <p id="user-win">244</p>
-              </div>
-            </div>
-
-            <div id="Top">
-              <img id="crown2" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Crown.png"
-              class="img-fluid mx-auto d-block" >
-              <h3 id="number">5</h3>
-              <div id="UsernameBoard">
-                <p id="user-profile-name">Almighty69 |</p>
-                <p id="user-win">244</p>
-              </div>
-            </div>
-
-            <div id="Top">
-              <img id="crown2" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Crown.png"
-              class="img-fluid mx-auto d-block" >
-              <h3 id="number">6</h3>
-              <div id="UsernameBoard">
-                <p id="user-profile-name">Almighty69 |</p>
-                <p id="user-win">244</p>
-              </div>
-            </div>
-
-            <div id="Top">
-              <img id="crown2" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Crown.png"
-              class="img-fluid mx-auto d-block" >
-              <h3 id="number">7</h3>
-              <div id="UsernameBoard">
-                <p id="user-profile-name">Almighty69 |</p>
-                <p id="user-win">244</p>
-              </div>
-            </div>
-
-            <div id="Top">
-              <img id="crown2" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Crown.png"
-              class="img-fluid mx-auto d-block" >
-              <h3 id="number">8</h3>
-              <div id="UsernameBoard">
-                <p id="user-profile-name">Almighty69 |</p>
-                <p id="user-win">244</p>
-              </div>
-            </div>
-
-            <div id="Top">
-              <img id="crown2" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Crown.png"
-              class="img-fluid mx-auto d-block" >
-              <h3 id="number">9</h3>
-              <div id="UsernameBoard">
-                <p id="user-profile-name">Almighty69 |</p>
-                <p id="user-win">244</p>
-              </div>
-            </div>
-
-            <div id="Top">
-              <img id="crown2" src="https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Crown.png"
-              class="img-fluid mx-auto d-block" >
-              <h3 id="number">10</h3>
-              <div id="UsernameBoard">
-                <p id="user-profile-name">Almighty69 |</p>
-                <p id="user-win">244</p>
-              </div>
-            </div>
-
+            class="img-fluid mx-auto d-block" alt="Logo">
+          <!-- หัวข้อ -->
+          <div class="row col-12" id="title">
+            <h5 class="rank d-flex justify-content-center col-4">Rank</h5>
+            <h5 class="name d-flex justify-content-center col-4">Username</h5>
+            <h5 class="gamewin d-flex justify-content-center col-4">Number of wins</h5>
+          </div>
+          <!-- show rank -->
+          <div class="row flex-wrap-reverse" id="ShowScore">
+            <!-- <h5 class="rank d-flex justify-content-center col-4" id="rank"></h5> -->
+            <h5 class="name d-flex justify-content-center col-4" id="username"></h5>
+            <!-- <h5 class="gamewin justify-content-center col-4" id="gamewin"></h5> -->
           </div>
       </div>
+    </div>
   </div>
+
   <script>
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
