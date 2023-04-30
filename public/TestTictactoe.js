@@ -1,4 +1,10 @@
-const gameRef = firebase.database().ref("Game");
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+console.log("UrlParams: ",urlParams.get("roomid"));
+
+const gameRef = firebase.database().ref(`RoomList/${urlParams.get("roomid")}`);
+
 const boardRef = firebase.database().ref("board");
 const btnJoins =  document.querySelectorAll(".btn-join");
 btnJoins.forEach((btnJoins) => btnJoins.addEventListener("click", joinGame));
@@ -21,12 +27,6 @@ function joinGame(event){
             });
             console.log(currentUser.email + " added.");
             event.currentTarget.disabled = true;
-            // if (player == 'x') {
-            //     document.querySelector("#btnJoin-o").disabled = true;
-            // } else {
-            //     document.querySelector("#btnJoin-x").disabled = true;
-            // }
-        
         }
     }
 }
