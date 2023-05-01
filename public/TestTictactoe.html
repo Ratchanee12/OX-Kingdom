@@ -1,328 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    <!-- Playfair Display -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <!-- Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 
-    <script src="jukebox.js"></script>
+  <script src="jukebox.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <!-- add icon bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <!-- add icon bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
-    <!-- add link to custom CSS -->
-    <!--  <link rel="stylesheet" href="styles/Lobby.css">-->
-    <title>Test Tictactoe</title>
-    <style>
-        body {
-            background-image: url("Picture/InGameBG.png");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: 100% 100%;
-            max-width: 100vw;
-            max-height: 100vh;
-            margin: 0;
-            padding: 0;
-        }
+  <!-- add link to custom CSS -->
+  <link rel="stylesheet" href="styles/Lobby.css">
+  <title>Test Tictactoe</title>
+  <style>
+    #currentTurn{
+        text-align: center;
+        font-size: 30px;
+        color:black;
+    }
+    table {
+        border-collapse: collapse;
+        margin: auto;
+    }
+    .table-col{
+      height: 100px;
+    }
+    td {
+        border: 1px solid black;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        font-size: 30px;
+    }
+    #healthBar{
+        display: inline-block;
+    }
+    #playerOHealth, #playerXHealth {
+        position: relative;
+        height: 30px;
+        width: 250px;
+        border: rgb(0, 0, 0) 3px solid;
+        border-radius: 3px;
+        margin-right: 20px;
+        display: inline-block;
+    }
 
-        #currentTurn {
-            text-align: center;
-            font-size: 30px;
-            color: black;
-        }
-
-        table {
-            border-collapse: collapse;
-            margin: auto;
-        }
-
-        td {
-            border: 1px solid black;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            font-size: 30px;
-        }
-
-        #playersStat {
-            justify-content: center;
-
-        }
-
-        .form-group {
-            display: flex;
-            justify-content: center;
-        }
-
-
-        #healthBar {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .playerStatContainer {
-            width: 350px;
-            font-family: 'Inter', serif;
-            font-style: italic;
-            font-weight: 700;
-            font-size: 40px;
-            line-height: 48px;
-        }
-
-        .playerStatContainer h3 {
-            padding-left: 8px;
-            padding-right: 8px;
-            background: linear-gradient(108.3deg, #FFBB82 -553.09%, #F3AF77 -539.35%, #C37F48 -470.65%, #A15C27 -415.69%, #8B4612 -374.47%, #843F0B -346.99%, #FFBB82 -85.93%, #CE7930 147.65%, #D27F38 161.39%, #F2AA6D 243.82%, #FFBB82 285.04%, #814300 436.18%, #A15915 477.4%, #BC6C26 518.62%, #C7742D 532.36%, #C5722C 546.1%, #BD6C28 642.28%, #C4712B 669.76%, #E3863B 765.94%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-
-            /* Buttons */
-
-            text-shadow: 0px 0px 20px #000000;
-        }
-
-        .playerO {
-            text-align: right;
-        }
-
-        #playerOHealth, #playerXHealth {
-            position: relative;
-            height: 18px;
-            width: 100%;
-            border-radius: 3px;
-            margin-right: 20px;
-            display: inline-block;
-            box-shadow: 0px 4px 40px #F2AA6D;
-        }
-
-        #playerOHealthBar, #playerXHealthBar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: lightgreen;
-
-        }
-
-        .game-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-
-        .characterImg {
-            z-index: 1;
-            max-height: 70vh;
-            overflow: hidden; /* Hide any content that goes beyond the container */
-        }
-
-        .characterImg img {
-           width: 100%; /* Set the width to 100% of the container width */
-  height: 100%; /* Set the height to 100% of the container height */
-  object-fit: contain; /* Scale the image to fill its container while maintaining its aspect ratio */
-        }
-
-        #gameTable {
-            position: absolute;
-            width: 33vw; /* 33% of viewport width */
-            max-width: 450px; /* Set a maximum width */
-            height: 33vw; /* 33% of viewport height */
-            max-height: 450px; /* Set a maximum height */
-            display: flex; /* Set the display property to flex */
-            flex-direction: column; /* Arrange child elements in a column */
-            align-items: center; /* Center all child elements horizontally */
-            padding-top: 12px;
-            padding-bottom: 12px;
-            top: 60%; /* Position the element 50% from the top */
-            left: 50%; /* Position the element 50% from the left */
-            transform: translate(-60%, -50%); /* Offset the element by half of its width and height to center it */
-
-            background: rgba(75, 0, 0, 0.7);
-            border-radius: 16px;
-
-            z-index: 2;
-        }
-
-        .row {
-            display: flex;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Add border styling */
-        .border {
-            border: 3px solid rgba(195, 127, 72, 1) !important;
-        }
-
-        /* Ensure that the text is centered */
-        .text-center {
-            text-align: center;
-        }
-
-
-    </style>
+    #playerOHealthBar, #playerXHealthBar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: lightgreen;
+    }
+</style>
 
 <body>
 
-<h1 class="display-1 text-center">Tic-Tac-Toe</h1>
-<div class="container logged-in">
-    <form class="form-inline row" id="playersStat">
-        <div class="form-group mb-2 row col-10">
-            <h1 id="roomTitle">Tic Tac Toe</h1>
-            <div id="healthBar">
-                <div class="playerStatContainer playerO">
-                    <h3 id="PlayerO">Player O</h3>
-                    <div id="playerOHealth">
-                        <div id="playerOHealthBar"></div>
-                    </div>
-                </div>
-                <div class="playerStatContainer playerX">
-                    <h3 id="PlayerX">Player X</h3>
-                    <div id="playerXHealth">
-                        <div id="playerXHealthBar"></div>
-                    </div>
-                </div>
-
-            </div>
-            <div id="currentTurn"></div>
+  <h1 class="display-1 text-center">Tic-Tac-Toe</h1>
+  <div class="container logged-in">
+    <form class="form-inline row">
+    <div class="form-group mb-2 row col-10">
+        <h1 id="roomTitle">Tic Tac Toe</h1>
+        <div id="healthBar">
+        <h3 id="PlayerO">Player O</h3>
+        <div id="playerOHealth">
+            <div id="playerOHealthBar"></div>
         </div>
+        <h3 id="PlayerX">Player X</h3>
+        <div id="playerXHealth">
+            <div id="playerXHealthBar" ></div>
+        </div>
+        </div>
+        <div id="currentTurn"></div>
+      </div>
     </form>
-    <h1 class="display-6 text-center" id="GameState"><b>Waiting for player...</b></h1>
+ <h1 class="display-6 text-center" id="GameState"><b>Waiting for player...</b></h1>
 
-    <div class="game-container">
-        <div class="characterImg playerO_Character">
-            <img src="Picture/InGameCharacter_Hero.png" alt="PlayerO" id="playerOCharacter">
-        </div>
-        <div class="container mb-2" id="gameTable">
-            <div class="row" id="row-1">
-                <div class="col border justify-content-center align-items-center table-col" id="row-1-col-1">
-                    <p class="display-4 text-center"></p>
-                </div>
-                <div class="col border justify-content-center align-items-center table-col" id="row-1-col-2">
-                    <p class="display-4 text-center"></p>
-                </div>
-                <div class="col border justify-content-center align-items-center table-col" id="row-1-col-3">
-                    <p class="display-4 text-center"></p>
-                </div>
-            </div>
-            <div class="row" id="row-2">
-                <div class="col border justify-content-center align-items-center table-col" id="row-2-col-1">
-                    <p class="display-4 text-center"></p>
-                </div>
-                <div class="col border justify-content-center align-items-center table-col" id="row-2-col-2">
-                    <p class="display-4 text-center"></p>
-                </div>
-                <div class="col border justify-content-center align-items-center table-col" id="row-2-col-3">
-                    <p class="display-4 text-center"></p>
-                </div>
-            </div>
-            <div class="row" id="row-3">
-                <div class="col border justify-content-center align-items-center table-col" id="row-3-col-1">
-                    <p class="display-4 text-center"></p>
-                </div>
-                <div class="col border justify-content-center align-items-center table-col" id="row-3-col-2">
-                    <p class="display-4 text-center"></p>
-                </div>
-                <div class="col border justify-content-center align-items-center table-col" id="row-3-col-3">
-                    <p class="display-4 text-center"></p>
-                </div>
-            </div>
-        </div>
-        <div class="characterImg playerX_Character">
-            <img src="Picture/InGameCharacter_Wizard.png" alt="PlayerX" id="playerXCharacter">
-        </div>
+<div class="container mb-2">
+  <div class="row" id="row-1">
+    <div class="col border justify-content-center align-items-center table-col" id="row-1-col-1">
+      <p class="display-4 text-center"></p>
     </div>
-
-
-    <div class="modal" id="modal-login" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
-                    <button type="button" class="btn-close btn-cancel" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-                <form action="" class="" id="login-form">
-                    <div class="modal-body mb-3">
-                        <input type="email" class="form-control" id="input-email-login" placeholder="Email" required>
-                        <br>
-                        <input type="password" class="form-control" id="input-password-login" placeholder="Password"
-                               required>
-                        <p id="feedback-msg-login"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">Close
-                        </button>
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-1-col-2">
+      <p class="display-4 text-center"></p>
     </div>
-
-    <div class="modal" id="modal-signup" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Signup</h5>
-                    <button type="button" class="btn-close btn-cancel" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-                <form action="" class="" id="signup-form">
-                    <div class="modal-body mb-3">
-                        <input type="email" class="form-control" id="input-email-signup" placeholder="Email" required>
-                        <br>
-                        <input type="password" class="form-control" id="input-password-signup" placeholder="Password"
-                               required>
-                        <p id="feedback-msg-signup"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">Close
-                        </button>
-                        <button type="submit" class="btn btn-primary">Signup</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-1-col-3">
+      <p class="display-4 text-center"></p>
     </div>
+  </div>
+  <div class="row" id="row-2">
+    <div class="col border justify-content-center align-items-center table-col" id="row-2-col-1">
+      <p class="display-4 text-center"></p>
+    </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-2-col-2">
+      <p class="display-4 text-center"></p>
+    </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-2-col-3">
+      <p class="display-4 text-center"></p>
+    </div>
+  </div>
+  <div class="row" id="row-3">
+    <div class="col border justify-content-center align-items-center table-col" id="row-3-col-1">
+      <p class="display-4 text-center"></p>
+    </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-3-col-2">
+      <p class="display-4 text-center"></p>
+    </div>
+    <div class="col border justify-content-center align-items-center table-col" id="row-3-col-3">
+      <p class="display-4 text-center"></p>
+    </div>
+  </div>
+</div>
 
+<button id="resetBtn"> reset </button>
+<button id="attackBtn"> attack </button>
+<button id="healBtn"> heal </button>
+<button id="backBtn"> back </button>
+<button id="killBtn"> killO </button>
+
+  <div class="modal" id="modal-login" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Login</h5>
+          <button type="button" class="btn-close btn-cancel" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" class="" id="login-form">
+          <div class="modal-body mb-3">
+            <input  type="email" class="form-control" id="input-email-login" placeholder="Email" required>
+            <br>
+            <input  type="password" class="form-control" id="input-password-login" placeholder="Password" required>
+            <p id="feedback-msg-login"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-signup" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Signup</h5>
+          <button type="button" class="btn-close btn-cancel" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" class="" id="signup-form">
+          <div class="modal-body mb-3">
+            <input  type="email" class="form-control" id="input-email-signup" placeholder="Email" required>
+            <br>
+            <input  type="password" class="form-control" id="input-password-signup" placeholder="Password" required>
+            <p id="feedback-msg-signup"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Signup</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
 </body>
 <script>
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
-        apiKey: "AIzaSyCwvd9LqYBKQWcML7wm7NrpJpt2VodOR2Q",
-        authDomain: "oxkingdom-1028e.firebaseapp.com",
-        databaseURL: "https://oxkingdom-1028e-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "oxkingdom-1028e",
-        storageBucket: "oxkingdom-1028e.appspot.com",
-        messagingSenderId: "411804462751",
-        appId: "1:411804462751:web:255e336c15569b7a53bcaa",
-        measurementId: "G-8GH3DQSQ6H"
+      apiKey: "AIzaSyCwvd9LqYBKQWcML7wm7NrpJpt2VodOR2Q",
+      authDomain: "oxkingdom-1028e.firebaseapp.com",
+      databaseURL: "https://oxkingdom-1028e-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "oxkingdom-1028e",
+      storageBucket: "oxkingdom-1028e.appspot.com",
+      messagingSenderId: "411804462751",
+      appId: "1:411804462751:web:255e336c15569b7a53bcaa",
+      measurementId: "G-8GH3DQSQ6H"
     };
     firebase.initializeApp(firebaseConfig)
-</script>
+  </script>
 <script src="TestTictactoe.js"></script>
 </html>
