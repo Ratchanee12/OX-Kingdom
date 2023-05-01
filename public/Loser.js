@@ -78,9 +78,9 @@ leaveBtn.addEventListener("click", function(){
         if(currentUser == checkPlayer){
             console.log("Delete Player")
             console.log([`User${oppositegameWinner}`])
-            // gameRef.update({
-            //     [`User${opposite}`]: "", 
-            // })
+            gameRef.update({
+                [`User${opposite}`]: "", 
+            })
             window.location ="Lobby.html"
         }
     })

@@ -36,11 +36,11 @@ gameRef.on("value", (snapshot) => {
         var addnumberofgame = parseInt(data.val().numberofgame) + 1;
         var updategamewin = parseInt(data.val().gamewin) + 1;
         var updatecoin = (data.val().coin) + 150;
-        // userList.child(snapshot.val()[`User${gameWinner}`]).update({
-        //     numberofgame: addnumberofgame,
-        //     gamewin: updategamewin,
-        //     coin: updatecoin,
-        // })
+        userList.child(snapshot.val()[`User${gameWinner}`]).update({
+            numberofgame: addnumberofgame,
+            gamewin: updategamewin,
+            coin: updatecoin,
+        })
         var username = `${data.val().username}`
         var coindisplay = `${data.val().coin}`
         var gameWinvalue = `${data.val().gamewin}`
