@@ -198,13 +198,24 @@ var times = 10;
 var cd;
 
 function countdowns () {
-    console.log(times)
     console.log('add')
     timeHTML.innerHTML = `<h1 style = " text-align: center;">${times}</h1>`
     times -= 1;
+    console.log(times)
     if (times < 0) {
+        console.log("function operate");
+        roomData.update({
+            countTurn: 0,
+            GameEnd: "",
+            HaveWinner: false,
+            LastClick: "",
+            // [FIXED] บังคับให้เกมแรกเป็น O เลย
+            Turn: "O",
+            Winner: "",
+            state: "",
+        })
         clearInterval(cd);
         console.log('Change HTML Page')
-        window.location = `NewTictac.html?roomid=${urlParams.get("roomid")}`;
+        window.location = `TestTictactoe.html?roomid=${urlParams.get("roomid")}`;
     }
 }
