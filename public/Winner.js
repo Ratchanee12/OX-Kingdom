@@ -55,6 +55,7 @@ gameRef.on("value", (snapshot) => {
 const playAgain = document.getElementById("playagainBtn")
 playAgain.addEventListener("click", function(){
     gameRef.once("value",(snapshot) =>{
+        gameWinner = snapshot.val().Winner;
         const currentUser = firebase.auth().currentUser.uid
         const checkPlayer = snapshot.val()[`User${snapshot.val().Winner}`]
         if(currentUser == checkPlayer){
@@ -74,6 +75,7 @@ playAgain.addEventListener("click", function(){
 const leaveBtn = document.getElementById("leaveBtn")
 leaveBtn.addEventListener("click", function(){
     gameRef.once("value",(snapshot) =>{
+        gameWinner = snapshot.val().Winner;
         const currentUser = firebase.auth().currentUser.uid
         const checkPlayer = snapshot.val()[`User${snapshot.val().Winner}`]
         if(currentUser == checkPlayer){
