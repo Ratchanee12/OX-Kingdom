@@ -92,6 +92,7 @@ function GameUpdate(snapshot) {
             if (GameInfo['state'] == 'action') {
                 let turnWinner = snapshot.val().Winner
                 currentUser = firebase.auth().currentUser
+                document.getElementById('GameState').innerText = `Player ${snapshot.val().Winner} Choose Your Action`;
                 console.log("Winner Turn: ",turnWinner)
                 console.log("User Uid: ", currentUser.uid)
                 console.log("Winner Uid: ", snapshot.val()[`User${turnWinner}`])
@@ -114,9 +115,9 @@ function GameUpdate(snapshot) {
                 console.log("CurrentUser: ", currentUser)
                 if(currentUser == GameWinner){
                     console.log("In condition Winner")
-                    userList.child(currentUser).once("value", (snapshot)=>{
-                        
-                    })
+                    window.location = `ResultWinner.html?roomid=${urlParams.get("roomid")}`;
+                }else{
+                    window.location = `ResultLoser.html?roomid=${urlParams.get("roomid")}`;
                 }
             }
         });
@@ -218,14 +219,14 @@ function checkGame(){
                     })
                     console.log("Win")
                 }
-                else if((board["row-1-col-3"] == snapshot.val().Turn) && (board["row-2-col-3"] == snapshot.val().Turn) && (board["row-3-col-3"] == snapshot.val().Turn)){
+                else if((board["row-1-col-1"] == snapshot.val().Turn) && (board["row-2-col-2"] == snapshot.val().Turn) && (board["row-3-col-3"] == snapshot.val().Turn)){
                     gameRef.update({
                         Winner: snapshot.val().Turn,
                         state: "action",
                     })
                     console.log("Win")
                 }
-                else if((board["row-3-col-1"] == snapshot.val().Turn) && (board["row-2-col-2"] == snapshot.val().Turn) && (board["row-1-col-3"] == snapshot.val().Turn)){
+                else if((board["row-1-col-3"] == snapshot.val().Turn) && (board["row-2-col-2"] == snapshot.val().Turn) && (board["row-3-col-1"] == snapshot.val().Turn)){
                     gameRef.update({
                         Winner: snapshot.val().Turn,
                         state: "action",
@@ -260,9 +261,21 @@ const attackAction = document.getElementById("attackBtn");
 attackAction.addEventListener("click", function(){
     console.log("Attack")
     gameRef.once("value", (snapshot) =>{
+        var Winner = snapshot.val().Winner;
         console.log("Opponent: ",opponent)
         console.log("Opponent Health:",snapshot.val()[`player${opponent}Health`])
-        attackDmg = 15;
+        if(snapshot.val()[`Character${Winner}`] == "Knight"){
+            console.log("Player Choose Knight")
+            attackDmg = 20;
+            console.log("attack value: ", attackDmg)
+        }else if (snapshot.val()[`Character${Winner}`] == "Mage"){
+            console.log("Player Choose Mage")
+            attackDmg = 40;
+            console.log("attack value: ", attackDmg)
+        }else{
+            attackDmg = 15;
+        }
+        
         let calculatedHealth = parseInt(snapshot.val()[`player${opponent}Health`]-attackDmg);
         
         if(opponent == 'X'){
@@ -359,7 +372,18 @@ const healAction = document.getElementById("healBtn");
 healAction.addEventListener("click",  function(){
     console.log("Heal")
     gameRef.once("value", (snapshot) =>{
-        healValue = 5;
+        var Winner = snapshot.val().Winner;
+        if(snapshot.val()[`Character${Winner}`] == "Knight"){
+            console.log("Player Choose Knight")
+            healValue = 20;
+            console.log("Heal: ", healValue)
+        }else if (snapshot.val()[`Character${Winner}`] == "Mage"){
+            console.log("Player Choose Mage")
+            healValue = 10;
+            console.log("Heal: ", healValue)
+        }else{
+            healValue = 15;
+        }
         let calculatedHealth = parseInt(snapshot.val()[`player${snapshot.val().Winner}Health`]+healValue);
         if(snapshot.val().Winner == 'X'){
             if (calculatedHealth > 100){
