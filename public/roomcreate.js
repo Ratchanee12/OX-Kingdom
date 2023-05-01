@@ -56,6 +56,7 @@ function JoinRoom(element){
     console.log(element);
     var canJoin = false;
     const getRoom = element.id;
+    console.log(getRoom)
     const currentClicker = firebase.auth().currentUser;
     console.log("button id: ", getRoom);
     roomRef.child(getRoom).once("value", (snapshot) =>{

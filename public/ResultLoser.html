@@ -59,7 +59,34 @@
 <body>
 
   <h1 class="display-1 text-center">Loser</h1>
+  <div id="winner">Loser</div>
+  <div class="row">
+    <div class="col-2">
+      <div >Game Total: </div>
+    </div>
+    <div class="col-2">
+      <div id="gameTotal">0</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <div >Game Win: </div>
+    </div>
+    <div class="col-2">
+      <div id="gameWin">0</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <div >Coin: </div>
+    </div>
+    <div class="col-2">
+      <div id="coinamount">Coin</div>
+    </div>
+  </div>
   
+  <button id="leaveBtn"> Return to Lobby</button>
+  <button id="playagainBtn"> Play Again</button>
 </body>
 <script>
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -75,5 +102,5 @@
     };
     firebase.initializeApp(firebaseConfig)
   </script>
-<script src="Loser.html"></script>
+<script src="Loser.js"></script>
 </html>
