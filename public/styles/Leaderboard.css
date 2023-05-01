@@ -33,8 +33,7 @@ body{
     /* Note: backdrop-filter has minimal browser support */
 
     border-radius: 24px;
-    margin-top: 15px;
-
+    margin-top: 20px;
     /* Inside auto layout */
 
     flex: none;
@@ -43,4 +42,7 @@ body{
 
     color: #F3AF77;
     background: rgba(75, 0, 0, 0.7);
+}
+#title{
+    margin-top: 30px;
 }

@@ -15,20 +15,91 @@ body{
     font-weight: 600;
 }
 #MyHero1{
-    width: 300px;
     height: 300px;
-    margin-top: 20px;
     border: 4px solid #d98742;
     border-radius: 15px;
 }
 #DescribeBox {
     padding: 20px;
-    width: 300px;
     height: 300px;
     border: 4px solid #d98742;
     backdrop-filter: blur(2px);
-    border-radius: 24px;
-    margin-top: 20px;
+    border-radius: 15px;
     color: #F3AF77;
     background: rgba(75, 0, 0, 0.7);
+}
+#leftHero{
+    /* border: 4px solid #ffffff; */
+    padding: 20px;
+}
+#rightDes{
+    /* border: 4px solid #000dff; */
+    padding: 20px;
+}
+#left{
+    /* border: 4px solid #07795e; */
+    padding: 20px;
+}
+
+#middle{
+    /* border: 4px solid #4fb8ff; */
+    padding: 20px;
+}
+#right{
+    /* border: 4px solid #ff4ffc; */
+    padding: 20px;
+}
+#left-top{
+    padding: 10px;
+    height: 110px;
+    border: 4px solid #d98742;
+    background: rgba(75, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+}
+#left-down{
+    padding: 10px;
+    height: 110px;
+    border: 4px solid #d98742;
+    background: rgba(75, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+    margin-top: 20px;
+}
+#middle-top{
+    padding: 10px;
+    height: 110px;
+    border: 4px solid #d98742;
+    background: rgba(75, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+}
+#middle-down{
+    padding: 10px;
+    height: 110px;
+    border: 4px solid #d98742;
+    background: rgba(75, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+    margin-top: 20px;
+}
+#right-top{
+    padding: 10px;
+    height: 110px;
+    border: 4px solid #d98742;
+    background: rgba(75, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+}
+#right-down{
+    padding: 10px;
+    height: 110px;
+    border: 4px solid #d98742;
+    background: rgba(75, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+    margin-top: 20px;
+}
+#AnyHero1{
+    height: 80px;
 }
