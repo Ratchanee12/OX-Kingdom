@@ -80,12 +80,13 @@ leaveBtn.addEventListener("click", function(){
         const currentUser = firebase.auth().currentUser.uid
         const checkPlayer = snapshot.val()[`User${oppositegameWinner}`]
         if(currentUser == checkPlayer){
+            window.location ="Lobby.html"
             console.log("Delete Player")
             console.log([`User${oppositegameWinner}`])
             gameRef.update({
                 [`User${oppositegameWinner}`]: "", 
             })
-            window.location ="Lobby.html"
+            
         }
     })
 });
