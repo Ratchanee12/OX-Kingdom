@@ -21,7 +21,7 @@ body{
 }
 #DescribeBox {
     padding: 20px;
-    height: 250px;
+    height: 280px;
     border: 4px solid #d98742;
     backdrop-filter: blur(2px);
     border-radius: 15px;
@@ -89,6 +89,7 @@ body{
     border-radius: 15px;
     margin-top: 20px;
     color: #F2AA6D;
+    display: flex;
 }
 #right-top{
     padding: 10px;
@@ -98,6 +99,7 @@ body{
     backdrop-filter: blur(2px);
     border-radius: 15px;
     color: #F2AA6D;
+    display: flex;
 }
 #right-down{
     padding: 10px;
@@ -108,10 +110,16 @@ body{
     border-radius: 15px;
     margin-top: 20px;
     color: #F2AA6D;
+    display: flex;
 }
 #AnyHero1{
     height: 80px;
 }
 #AnyHero2{
     height: 80px;
+}
+#theButton{
+    background: #f3af77;
+    border: 2px solid #F3AF77;
+    border-radius: 6px;
 }
