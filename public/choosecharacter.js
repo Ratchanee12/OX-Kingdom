@@ -71,12 +71,21 @@ roomData.on("value", (snapshot) => {
     if(snapshot.val().CharacterO == "" || snapshot.val().CharacterO == undefined){
         pictureCharacterO.innerHTML = `Waiting..`
     }else{
-        pictureCharacterO.innerHTML = `${snapshot.val().CharacterO}`
+        if(snapshot.val().CharacterO == "Knight"){
+            pictureCharacterO.innerHTML = `<img src="Picture/InGameCharacter_Hero.png" alt="PlayerO">`
+        } else if(snapshot.val().CharacterO == "Mage"){
+            pictureCharacterO.innerHTML = `<img src="Picture/InGameCharacter_Wizard.png" alt="PlayerX">`
+        }
+        
     }
     if(snapshot.val().CharacterX == "" || snapshot.val().CharacterX == undefined){
         pictureCharacterX.innerHTML = `Waiting..`
     }else{
-        pictureCharacterX.innerHTML = `${snapshot.val().CharacterX}`
+        if(snapshot.val().CharacterX == "Knight"){
+            pictureCharacterX.innerHTML = `<img src="Picture/InGameCharacter_Hero.png" alt="PlayerO">`
+        } else if(snapshot.val().CharacterX == "Mage"){
+            pictureCharacterX.innerHTML = `<img src="Picture/InGameCharacter_Wizard.png" alt="PlayerX">`
+        }
     }
     if (currentWatcher.uid == snapshot.val().UserO || currentWatcher.uid == snapshot.val().UserX){
         if(uiduserO !=""){
