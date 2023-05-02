@@ -7,6 +7,14 @@ body{
     font-family: 'Inter', sans-serif;
     color: #f4a25f;
 }
+
+#CreateRoon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
 #returnPage{
     font-family: 'Playfair Display', serif;
     margin-top: 30px;
@@ -27,7 +35,6 @@ body{
     color: #f4a25f;
     justify-content: center;
     margin-top: 2%;
-    margin-left: 35%;
 }
 #line {
     content: "\2014";
@@ -47,14 +54,15 @@ body{
     color: #f4a25f;
     justify-content: center;
     margin-top: 2%;
-    margin-left: 35%;
     padding: 15px;
+    overflow-y: auto;
 }
 #room1, #room2, #room3, #room4, #room5{
     border: 1px solid #F3AF77;
     border-radius: 8px;
     display: flex;
     margin-top: 13px;
+    color:#F3AF77;
 }
 #nameR1{
     margin-top: 10px;
@@ -70,3 +78,11 @@ body{
     border-left: 1px solid;
 }
 
+.join-roomBtn{
+    color: #f9ab57;
+    width: 80px;
+}
+
+.nameplaceholder::placeholder{
+    color: #f9ab57;
+}
