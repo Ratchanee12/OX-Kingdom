@@ -219,6 +219,14 @@ function checkGame(){
                     })
                     console.log("Win")
                 }
+                // [FIXED] หายไป 1 เงื่อนไขนะ
+                else if((board["row-1-col-3"] == snapshot.val().Turn) && (board["row-2-col-3"] == snapshot.val().Turn) && (board["row-3-col-3"] == snapshot.val().Turn)){
+                    gameRef.update({
+                        Winner: snapshot.val().Turn,
+                        state: "action",
+                    })
+                    console.log("Win")
+                }
                 else if((board["row-1-col-1"] == snapshot.val().Turn) && (board["row-2-col-2"] == snapshot.val().Turn) && (board["row-3-col-3"] == snapshot.val().Turn)){
                     gameRef.update({
                         Winner: snapshot.val().Turn,
@@ -250,7 +258,7 @@ function checkGame(){
                         Turn:"O",
                         state: "check",
                     })
-                    console.log("Win")
+                    console.log("Draw")
                 }
             }
         })

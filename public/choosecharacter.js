@@ -213,6 +213,8 @@ function countdowns () {
             Turn: "O",
             Winner: "",
             state: "",
+            playerOHealth: 100,
+            playerXHealth: 100,
         })
         clearInterval(cd);
         console.log('Change HTML Page')
