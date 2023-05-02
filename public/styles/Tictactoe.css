@@ -1,3 +1,14 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#currentTurn {
+    text-align: center;
+    font-size: 30px;
+    color: black;
+}
+
 #playersStat {
     justify-content: center;
 
@@ -26,6 +37,34 @@
     text-shadow: 0px 0px 20px #000000;
 }
 
+#PlayerO {
+    text-align: right;
+}
+
+#healthBar {
+    display: flex;
+    justify-content: space-between;
+}
+
+#playerOHealth, #playerXHealth {
+    position: relative;
+    height: 18px;
+    width: 100%;
+    border-radius: 3px;
+    margin-right: 20px;
+    display: inline-block;
+    box-shadow: 0px 4px 40px #F2AA6D;
+}
+
+#playerOHealthBar, #playerXHealthBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: lightgreen;
+}
+
 .game-container {
     display: flex;
     flex-direction: row;
@@ -39,9 +78,9 @@
 }
 
 .characterImg img {
-   width: 100%; /* Set the width to 100% of the container width */
-height: 100%; /* Set the height to 100% of the container height */
-object-fit: contain; /* Scale the image to fill its container while maintaining its aspect ratio */
+    width: 100%; /* Set the width to 100% of the container width */
+    height: 100%; /* Set the height to 100% of the container height */
+    object-fit: contain; /* Scale the image to fill its container while maintaining its aspect ratio */
 }
 
 #gameTable {
@@ -55,8 +94,8 @@ object-fit: contain; /* Scale the image to fill its container while maintaining 
     align-items: center; /* Center all child elements horizontally */
     padding-top: 12px;
     padding-bottom: 12px;
-    top: 68%; /* Position the element 50% from the top */
-    left: 52%; /* Position the element 50% from the left */
+    top: 58%; /* Position the element 50% from the top */
+    left: 53%; /* Position the element 50% from the left */
     transform: translate(-60%, -50%); /* Offset the element by half of its width and height to center it */
 
     background: rgba(75, 0, 0, 0.7);
@@ -71,6 +110,10 @@ object-fit: contain; /* Scale the image to fill its container while maintaining 
     height: 100%;
 }
 
+.table-col {
+    display: flex;
+}
+
 /* Add border styling */
 .border {
     border: 3px solid rgba(195, 127, 72, 1) !important;
@@ -79,4 +122,58 @@ object-fit: contain; /* Scale the image to fill its container while maintaining 
 /* Ensure that the text is centered */
 .text-center {
     text-align: center;
+}
+
+.buttons {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 16px;
+}
+
+button {
+    box-sizing: border-box;
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 10px;
+
+    border: 3px solid;
+
+    /* Panel BG */
+
+    background: rgba(75, 0, 0, 0.7);
+    border-radius: 12px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+
+    /* Gradient / Button */
+
+    color: #FFBB82;
+
+    /* identical to box height */
+
+    text-align: center;
+}
+
+button:disabled {
+    background-color: dimgrey;
+    color: #303030;
+    border: none;
+    opacity: 50%;
+}
+
+button:hover {
+    cursor: pointer;
+    filter: saturate(50%);
 }
