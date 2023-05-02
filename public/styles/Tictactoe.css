@@ -112,6 +112,7 @@
 
 .table-col {
     display: flex;
+    font-size: 6vw;
 }
 
 /* Add border styling */
