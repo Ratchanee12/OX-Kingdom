@@ -68,6 +68,7 @@ body{
     border-radius: 15px;
     margin-top: 20px;
     color: #F2AA6D;
+    display: flex;
 }
 #middle-top{
     padding: 10px;
