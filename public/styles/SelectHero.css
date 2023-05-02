@@ -43,14 +43,20 @@ body{
 }
 #countdownChar{
     color: #F3AF77;
-}
-#playerXCharacter, #playerOCharacter{
-    width: 280px;
-    height: 380px;
+    text-align: center;
 }
 #currentRoomState{
     color: #F3AF77;
 }
 #roomName{
     color: #F3AF77;
+}
+.count{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+img{
+    width: 350px;
 }
