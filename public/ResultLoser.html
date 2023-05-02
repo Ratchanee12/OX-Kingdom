@@ -31,62 +31,56 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
   <!-- add link to custom CSS -->
-  <link rel="stylesheet" href="styles/Lobby.css">
-  <title>Test Tictactoe</title>
-  <style>
-    #currentTurn{
-        text-align: center;
-        font-size: 30px;
-        color:black;
-    }
-    table {
-        border-collapse: collapse;
-        margin: auto;
-    }
-    .table-col{
-      height: 100px;
-    }
-    td {
-        border: 1px solid black;
-        width: 50px;
-        height: 50px;
-        text-align: center;
-        font-size: 30px;
-    }
-    
-</style>
+  <link rel="stylesheet" href="styles/ResultWinner.css">
 
 <body>
+  <div class="container">
+    <div class="col-12" >
+      <h1 class="display-1 text-center" id="Title">Loser</h1>
+      <div class="display-1 text-center" id="winner">Username</div>
+    </div>
+  </div>
 
-  <h1 class="display-1 text-center">Loser</h1>
-  <div id="winner">Loser</div>
-  <div class="row">
-    <div class="col-2">
-      <div >Game Total: </div>
+  <div class="container" id="ShowResultWin">
+    <h2>Reward</h2>
+
+    <div class="col-12 d-flex text-center" >
+      <div class="col-6">
+        <p>Game Total: </p>
+      </div>
+      <div class="col-6">
+        <p id="gameTotal">0</p>
+      </div>
     </div>
-    <div class="col-2">
-      <div id="gameTotal">0</div>
+
+    <div class="col-12 d-flex text-center">
+      <div class="col-6">
+        <div>Game Win: </div>
+      </div>
+      <div class="col-6">
+        <div id="gameWin">0</div>
+      </div>
+    </div>
+    
+    <div class="col-12 d-flex text-center">
+      <div class="col-6">
+        <div >Coin: </div>
+      </div>
+      <div class="col-6">
+        <div id="coinamount">Coin</div>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-2">
-      <div >Game Win: </div>
+  <div class="container" id="AllBtn">
+    <div class="col-12 d-flex text-center">
+    <div class="col-6">
+      <button id="leaveBtn"> Return to Lobby</button>
     </div>
-    <div class="col-2">
-      <div id="gameWin">0</div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-2">
-      <div >Coin: </div>
-    </div>
-    <div class="col-2">
-      <div id="coinamount">Coin</div>
+    <div class="col-6">
+      <button id="playagainBtn"> Play Again</button>
     </div>
   </div>
-  
-  <button id="leaveBtn"> Return to Lobby</button>
-  <button id="playagainBtn"> Play Again</button>
+  </div>
 </body>
 <script>
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
