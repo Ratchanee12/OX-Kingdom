@@ -14,3 +14,40 @@ body{
     color: #F2AA6D;
     font-weight: 600;
 }
+#Username-PlayerO, #Username-PlayerX{
+    color: #F2AA6D;
+}
+#character-button{
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    gap: 10px;
+
+    width: 150px;
+    height: 60px;
+
+    /* Panel BG */
+
+    background: rgba(75, 0, 0, 0.7);
+    border: 3px solid #F3AF77;
+    border-radius: 5px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    color: #F3AF77;
+    z-index: 1;
+}
+#countdownChar{
+    color: #F3AF77;
+}
+#playerXCharacter, #playerOCharacter{
+    width: 280px;
+    height: 380px;
+}
+#currentRoomState{
+    color: #F3AF77;
+}

@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
   <!-- add link to custom CSS -->
-  <link rel="stylesheet" href="styles/Lobby.css">
+  <link rel="stylesheet" href="styles/SelectHero.css">
 </head>
 <body>
   <div class="container">
@@ -42,30 +42,43 @@
         <h1><i type="button" class="bi bi-arrow-left-circle" id="returnicon"></i> Choose Character</h1>     
         <h2 id="roomName"></h2>
       </div>
-      <div class="col">
+
+      <div class="col-6">
       <div id="Username-PlayerO">Player O: Waiting...</div>
       <h1 id="PlayercharacterO">Waiting..</h1>
       </div>
-      <div class="col">
+      <div class="col-6">
       <div id="Username-PlayerX">Player X: Waiting...</div>
       <h1 id="PlayercharacterX">Waiting..</h1>
       </div>
-      <div class="col">
+      <div class="col-6">
         <div id="currentRoomState"></div>
       </div>
       <div class="row">
-        <div class="col">
-            <button class="button btn-light m-0 p-2" id="character-button" data-character="Knight">Knight</button>
+        <div class="col-6">
+            <button class="button btn-light" id="character-button" data-character="Knight">Knight</button>
         </div>
-        <div class="col">
-            <button class="button btn-light m-0 p-2" id="character-button" data-character="Mage">Mage</button>
+        <div class="col-6">
+            <button class="button btn-light" id="character-button" data-character="Mage">Mage</button>
         </div>
-      </div>
+      </div>      
+      
       <div class="row my-5">
-        <div class="col">
+        <div class="col-12">
           <h2 id="countdownChar">TIME</h2>
         </div>
       </div>
+      
+      <!-- <div class="col-12 d-flex">
+        <div class="col-6" id="playerO_Character">
+          <img src="Picture/InGameCharacter_Hero.png" alt="PlayerO" id="playerOCharacter">
+        </div>
+        <div class="col-6" id="playerX_Character">
+          <img src="Picture/InGameCharacter_Wizard.png" alt="PlayerX" id="playerXCharacter">
+        </div>
+      </div> -->
+      
+
     </div>
   </div>
   <script>
