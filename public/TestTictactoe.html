@@ -32,6 +32,7 @@
 
   <!-- add link to custom CSS -->
   <link rel="stylesheet" href="styles/Lobby.css">
+  <link rel="stylesheet" href="styles/Tictactoe.css">
   <title>Test Tictactoe</title>
   <style>
     #currentTurn{
@@ -39,7 +40,7 @@
         font-size: 30px;
         color:black;
     }
-    table {
+    /* table {
         border-collapse: collapse;
         margin: auto;
     }
@@ -52,53 +53,59 @@
         height: 50px;
         text-align: center;
         font-size: 30px;
-    }
+    } */
     #healthBar{
-        display: inline-block;
+      display: flex;
+      justify-content: space-between;
     }
     #playerOHealth, #playerXHealth {
-        position: relative;
-        height: 30px;
-        width: 250px;
-        border: rgb(0, 0, 0) 3px solid;
-        border-radius: 3px;
-        margin-right: 20px;
-        display: inline-block;
+      position: relative;
+      height: 18px;
+      width: 100%;
+      border-radius: 3px;
+      margin-right: 20px;
+      display: inline-block;
+      box-shadow: 0px 4px 40px #F2AA6D;
     }
 
     #playerOHealthBar, #playerXHealthBar {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        background: lightgreen;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: lightgreen;
     }
 </style>
 
 <body>
 
-  <h1 class="display-1 text-center">Tic-Tac-Toe</h1>
-  <div class="container logged-in">
-    <form class="form-inline row">
-    <div class="form-group mb-2 row col-10">
-        <h1 id="roomTitle">Tic Tac Toe</h1>
-        <div id="healthBar">
-        <h3 id="PlayerO">Player O</h3>
-        <div id="playerOHealth">
-            <div id="playerOHealthBar"></div>
-        </div>
-        <h3 id="PlayerX">Player X</h3>
-        <div id="playerXHealth">
-            <div id="playerXHealthBar" ></div>
-        </div>
-        </div>
-        <div id="currentTurn"></div>
-      </div>
-    </form>
- <h1 class="display-6 text-center" id="GameState"><b>Waiting for player...</b></h1>
+<h1 class="display-1 text-center">Tic-Tac-Toe</h1>
+<div class="container logged-in">
+    <form class="form-inline row" id="playersStat">
+        <div class="form-group mb-2 row col-10">
+            <h1 id="roomTitle">Tic Tac Toe</h1>
+            <div id="healthBar">
+                <div class="playerStatContainer playerO">
+                    <h3 id="PlayerO">Player O</h3>
+                    <div id="playerOHealth">
+                        <div id="playerOHealthBar"></div>
+                    </div>
+                </div>
+                <div class="playerStatContainer playerX">
+                    <h3 id="PlayerX">Player X</h3>
+                    <div id="playerXHealth">
+                        <div id="playerXHealthBar"></div>
+                    </div>
+                </div>
 
-<div class="container mb-2">
+            </div>
+            <div id="currentTurn"></div>
+        </div>
+    </form>
+    <h1 class="display-6 text-center" id="GameState"><b>Waiting for player...</b></h1>
+
+<!-- <div class="container mb-2" id="gameTable">
   <div class="row" id="row-1">
     <div class="col border justify-content-center align-items-center table-col" id="row-1-col-1">
       <p class="display-4 text-center"></p>
@@ -132,7 +139,53 @@
       <p class="display-4 text-center"></p>
     </div>
   </div>
+</div> -->
+
+<!-- ใหม่ -->
+<div class="game-container">
+  <div class="characterImg playerO_Character">
+      <img src="Picture/InGameCharacter_Hero.png" alt="PlayerO" id="playerOCharacter">
+  </div>
+  <div class="container mb-2" id="gameTable">
+      <div class="row" id="row-1">
+          <div class="col border justify-content-center align-items-center table-col" id="row-1-col-1">
+              <p class="display-4 text-center"></p>
+          </div>
+          <div class="col border justify-content-center align-items-center table-col" id="row-1-col-2">
+              <p class="display-4 text-center"></p>
+          </div>
+          <div class="col border justify-content-center align-items-center table-col" id="row-1-col-3">
+              <p class="display-4 text-center"></p>
+          </div>
+      </div>
+      <div class="row" id="row-2">
+          <div class="col border justify-content-center align-items-center table-col" id="row-2-col-1">
+              <p class="display-4 text-center"></p>
+          </div>
+          <div class="col border justify-content-center align-items-center table-col" id="row-2-col-2">
+              <p class="display-4 text-center"></p>
+          </div>
+          <div class="col border justify-content-center align-items-center table-col" id="row-2-col-3">
+              <p class="display-4 text-center"></p>
+          </div>
+      </div>
+      <div class="row" id="row-3">
+          <div class="col border justify-content-center align-items-center table-col" id="row-3-col-1">
+              <p class="display-4 text-center"></p>
+          </div>
+          <div class="col border justify-content-center align-items-center table-col" id="row-3-col-2">
+              <p class="display-4 text-center"></p>
+          </div>
+          <div class="col border justify-content-center align-items-center table-col" id="row-3-col-3">
+              <p class="display-4 text-center"></p>
+          </div>
+      </div>
+  </div>
+  <div class="characterImg playerX_Character">
+      <img src="Picture/InGameCharacter_Wizard.png" alt="PlayerX" id="playerXCharacter">
+  </div>
 </div>
+
 
 <button id="resetBtn"> reset </button>
 <button id="attackBtn"> attack </button>

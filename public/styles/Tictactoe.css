@@ -1,0 +1,82 @@
+#playersStat {
+    justify-content: center;
+
+}
+
+.playerStatContainer {
+    width: 350px;
+    font-family: 'Inter', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+}
+
+.playerStatContainer h3 {
+    padding-left: 8px;
+    padding-right: 8px;
+    background: linear-gradient(108.3deg, #FFBB82 -553.09%, #F3AF77 -539.35%, #C37F48 -470.65%, #A15C27 -415.69%, #8B4612 -374.47%, #843F0B -346.99%, #FFBB82 -85.93%, #CE7930 147.65%, #D27F38 161.39%, #F2AA6D 243.82%, #FFBB82 285.04%, #814300 436.18%, #A15915 477.4%, #BC6C26 518.62%, #C7742D 532.36%, #C5722C 546.1%, #BD6C28 642.28%, #C4712B 669.76%, #E3863B 765.94%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    /* Buttons */
+
+    text-shadow: 0px 0px 20px #000000;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.characterImg {
+    z-index: 1;
+    max-height: 70vh;
+    overflow: hidden; /* Hide any content that goes beyond the container */
+}
+
+.characterImg img {
+   width: 100%; /* Set the width to 100% of the container width */
+height: 100%; /* Set the height to 100% of the container height */
+object-fit: contain; /* Scale the image to fill its container while maintaining its aspect ratio */
+}
+
+#gameTable {
+    position: absolute;
+    width: 33vw; /* 33% of viewport width */
+    max-width: 450px; /* Set a maximum width */
+    height: 33vw; /* 33% of viewport height */
+    max-height: 450px; /* Set a maximum height */
+    display: flex; /* Set the display property to flex */
+    flex-direction: column; /* Arrange child elements in a column */
+    align-items: center; /* Center all child elements horizontally */
+    padding-top: 12px;
+    padding-bottom: 12px;
+    top: 68%; /* Position the element 50% from the top */
+    left: 52%; /* Position the element 50% from the left */
+    transform: translate(-60%, -50%); /* Offset the element by half of its width and height to center it */
+
+    background: rgba(75, 0, 0, 0.7);
+    border-radius: 16px;
+
+    z-index: 2;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Add border styling */
+.border {
+    border: 3px solid rgba(195, 127, 72, 1) !important;
+}
+
+/* Ensure that the text is centered */
+.text-center {
+    text-align: center;
+}
