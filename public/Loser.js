@@ -40,7 +40,7 @@ gameRef.once("value", (snapshot) => {
             coin: updatecoin,
         })
         var username = `${data.val().username}`
-        var coindisplay = `${data.val().coin}`
+        var coindisplay = "+50"
         var gameWinvalue = `${data.val().gamewin}`
         var gameTotalvalue = `${data.val().numberofgame}`
         winnerdisplay.innerHTML = username;
