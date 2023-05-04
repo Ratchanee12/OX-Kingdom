@@ -22,12 +22,10 @@ function createRoom(event){
 
 function readRoomList(currentList){
     showRoom.innerHTML="";
-    //assign Snapshot
     currentList.forEach(data => {
         console.log(data.val())
         const roomArray = data.val();
         let userCreator;
-        //get different data form different table
         if (roomArray.UserO != "" || roomArray.UserX != ""){
             if (roomArray.UserO != ""){
                 userCreator = roomArray.UserO;
@@ -76,7 +74,6 @@ function JoinRoom(element){
             canJoin = true;
         }
         if(canJoin == true){
-            //window.location = "Tictactoe.html";
             window.location = `choosecharacter.html?roomid=${getRoom}`;
         }
         if(currentClicker.uid == roomData.UserO || currentClicker.uid == roomData.UserX){

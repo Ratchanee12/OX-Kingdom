@@ -1,169 +1,458 @@
-let player = "X";
-let board = ["", "", "", "", "", "", "", "", ""];
-let gameOver = false;
-let message = document.getElementById("message");
-let rouResult = document.getElementById("roundresult");
-let onGoingTurn = document.getElementById("currentTurn");
-var playerOHealth = 100;
-var playerXHealth = 100;
-var attackBtn = document.getElementById('attack');
-var healBtn = document.getElementById('heal');
-var playerOHealthBar = document.getElementById('playerOHealthBar');
-var playerXHealthBar = document.getElementById('playerXHealthBar');
-var winner = "";
-
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-console.log(urlParams.get("roomid"));
+console.log("UrlParams: ",urlParams.get("roomid"));
 
-resetGame();
+const gameRef = firebase.database().ref(`RoomList/${urlParams.get("roomid")}`);
 
-const roomData = firebase.database().ref(`RoomList/${urlParams.get("roomid")}`)
+const Gameuid = `${urlParams.get("roomID")}`;
 
-roomData.on("value", (snapshot) => {
-    console.log(snapshot.val());
-    document.getElementById("roomTitle").innerHTML=`${snapshot.val().LobbyName}`;
+const userList = firebase.database().ref("UserList");
+
+const boardRef = firebase.database().ref(`xoGame/${urlParams.get("roomid")}`);
+const btnJoins =  document.querySelectorAll(".btn-join");
+btnJoins.forEach((btnJoins) => btnJoins.addEventListener("click", joinGame));
+
+var playerOHealthBar = document.getElementById('playerOHealthBar');
+var playerXHealthBar = document.getElementById('playerXHealthBar');
+
+var playerturn;
+var currentUser;
+var opponentHealth;
+var playerHealth;
+let opponent;
+var attackDmg;
+var healValue;
+var win = false;
+
+const Elements =  document.querySelectorAll(".table-col");
+Elements.forEach((el) => el.addEventListener("click", SendToxoGame));
+function SendToxoGame(ev) {
+    gameRef.once('value', snapshot => {
+        var gameInfo = snapshot.val();
+        var CurrentTurn = snapshot.val().Turn;
+        currentUser = firebase.auth().currentUser.uid;
+
+        if(snapshot.val().state != "end"){
+            if(currentUser == snapshot.val()[`User${CurrentTurn}`]){
+                console.log("Ev Check: ",ev.currentTarget.innerText)
+                if ((ev.currentTarget.innerText == "" && gameInfo['Winner'] == "")){
+                    console.log("Last Click",ev.currentTarget.id)
+                    ev.currentTarget.textContent = gameInfo['Turn']
+                    boardRef.update({
+                        [`${ev.currentTarget.id}`] : gameInfo['Turn']
+                    })
+                    checkGame();
+                    gameRef.update({
+                        Turn : snapshot.val().Turn == 'O' ? 'X' : 'O',
+                    })
+                }
+                
+            }
+        }
+    })
+}
+
+firebase.auth().onAuthStateChanged((user) => {
+    currentUser = user;
 });
 
-function handleClick(id) {
-    if (board[id] !== "" || gameOver) {
-        return;
-    }
-    board[id] = player;
-    document.getElementById(id).innerText = player;
-    checkWinnerXO();
-    switchPlayer();
-    checkGamewinner();
+function GameUpdate(snapshot) {
+    setTimeout(() => {
+        gameRef.once('value', (snapshot) =>{
+            var GameInfo = snapshot.val();
+            document.getElementById("attackBtn").disabled = true;
+            document.getElementById("healBtn").disabled = true;
+            Object.keys(GameInfo).forEach((key) => {
+                switch (key) {
+                    case "UserX":
+                        if (GameInfo[`${key}`] != '') {
+                            userList.child(`${GameInfo[`${key}`]}`).once('value',(usersnapshot) =>{
+                                let UserInfo = usersnapshot.val()
+                                console.log(UserInfo.username)
+                                document.querySelector('#PlayerX').textContent = `Player X: ${UserInfo.username}`
+                            })
+                        }
+                        break;
+                    case "UserO":
+                        if (GameInfo[`${key}`] != '') {
+                            userList.child(`${GameInfo[`${key}`]}`).once('value',(usersnapshot) =>{
+                                let UserInfo = usersnapshot.val()
+                                console.log(UserInfo.username)
+                                document.querySelector('#PlayerO').textContent = `Player O: ${UserInfo.username}`
+                            })
+                        }
+                        break;
+                }
+                document.getElementById('GameState').innerText = `Turn: ${GameInfo["Turn"]}`;
+                playerOHealthBar.style.width = parseInt(snapshot.val().playerOHealth) + "%";
+	            playerXHealthBar.style.width = parseInt(snapshot.val().playerXHealth) + "%";
+            })
+            if (GameInfo['state'] == 'action') {
+                let turnWinner = snapshot.val().Winner
+                currentUser = firebase.auth().currentUser
+                document.getElementById('GameState').innerText = `Player ${snapshot.val().Winner} Choose Your Action`;
+                console.log("Winner Turn: ",turnWinner)
+                console.log("User Uid: ", currentUser.uid)
+                console.log("Winner Uid: ", snapshot.val()[`User${turnWinner}`])
+                if(currentUser.uid == snapshot.val()[`User${turnWinner}`]){
+                    opponent = snapshot.val().Winner == 'O' ? 'X' : 'O'
+                    console.log(snapshot.val()[`player${opponent}Health`])
+                    document.getElementById("attackBtn").disabled = false;
+                    document.getElementById("healBtn").disabled = false;
+                    opponentHealth = snapshot.val()[`player${opponent}Health`];
+                    playerHealth = snapshot.val()[`player${turnWinner}Health`];
+                }
+            }
+            else if (GameInfo['state'] == 'end'){
+                turnWinner = snapshot.val().Winner
+                currentUser = firebase.auth().currentUser.uid
+                GameWinner = snapshot.val()[`User${turnWinner}`]
+                console.log("Game End")
+                console.log(snapshot.val().Winner)
+                console.log("Game Winner: ", snapshot.val()[`User${turnWinner}`])
+                console.log("CurrentUser: ", currentUser)
+                if(currentUser == GameWinner){
+                    console.log("In condition Winner")
+                    window.location = `ResultWinner.html?roomid=${urlParams.get("roomid")}`;
+                }else{
+                    window.location = `ResultLoser.html?roomid=${urlParams.get("roomid")}`;
+                }
+            }
+        });
+    },100);
 }
 
-function switchPlayer() {
-    player = player === "X" ? "O" : "X";
-    onGoingTurn.innerHTML = "Turn: " + player;
-}
+gameRef.on("value", (snapshot) =>{
+    GameUpdate(snapshot)
+});
 
-function checkWinnerXO() {
-    let winningPositions = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
-    for (let i = 0; i < winningPositions.length; i++) {
-        let [a, b, c] = winningPositions[i];
-        if (board[a] !== "" && board[a] === board[b] && board[a] === board[c]) {
-            gameOver = true;
-            winner = board[a];
-            message.innerText = `${board[a]} Choose action`;
-            attackBtn.disabled = false;
-	        healBtn.disabled = false;
-            return;
+boardRef.on('value', (snapshot) =>{
+        var boardInfo = snapshot.val();
+        console.log(boardInfo)
+        if(boardInfo != null){
+            Elements.forEach((el) =>{
+                var eid = el.id
+                console.log(eid)
+                el.textContent = boardInfo[`${eid}`]
+            });
+        } else{
+            boardRef.update({
+                "row-1-col-1" :  "",
+                "row-1-col-2" :  "",
+                "row-1-col-3" :  "",
+                "row-2-col-1" :  "",
+                "row-2-col-2" :  "",
+                "row-2-col-3" :  "",
+                "row-3-col-1" :  "",
+                "row-3-col-2" :  "",        
+                "row-3-col-3" :  "",
+            })
         }
-    }
-    if (!board.includes("")) {
-        message.innerText = `it's a stalemate start again`;
-        setTimeout(resetBoard, 2000);
-    }
+});
+
+
+///check game
+function checkGame(){
+    gameRef.once("value", (snapshot) =>{ 
+        boardRef.once("value", (data) =>{
+            let board = data.val();
+            if(board != null){
+                console.log("row1col1",board["row-1-col-1"])
+                console.log("row2col1",board["row-2-col-1"] == "O")
+                console.log("snapshot turn: ", snapshot.val().Turn)
+                if((board["row-1-col-1"] == snapshot.val().Turn) && (board["row-1-col-2"] == snapshot.val().Turn) && (board["row-1-col-3"] == snapshot.val().Turn)){
+                    gameRef.update({
+                        Winner: snapshot.val().Turn,
+                        state: "action",
+                    })
+                    console.log("Win", snapshot.val().Turn)
+                } 
+                else if((board["row-2-col-1"] == snapshot.val().Turn) && (board["row-2-col-2"] == snapshot.val().Turn) && (board["row-2-col-3"] == snapshot.val().Turn)){
+                    gameRef.update({
+                        Winner: snapshot.val().Turn,
+                        state: "action",
+                    })
+                    console.log("Win")
+                }
+                else if((board["row-3-col-1"] == snapshot.val().Turn) && (board["row-3-col-2"] == snapshot.val().Turn) && (board["row-3-col-3"] == snapshot.val().Turn)){
+                    gameRef.update({
+                        Winner: snapshot.val().Turn,
+                        state: "action",
+                    })
+                    console.log("Win")
+                }
+                else if((board["row-1-col-1"] == snapshot.val().Turn) && (board["row-2-col-1"] == snapshot.val().Turn) && (board["row-3-col-1"] == snapshot.val().Turn)){
+                    gameRef.update({
+                        Winner: snapshot.val().Turn,
+                        state: "action",
+                    })
+                    console.log("Win")
+                }
+                else if((board["row-1-col-2"] == snapshot.val().Turn) && (board["row-2-col-2"] == snapshot.val().Turn) && (board["row-3-col-2"] == snapshot.val().Turn)){
+                    gameRef.update({
+                        Winner: snapshot.val().Turn,
+                        state: "action",
+                    })
+                    console.log("Win")
+                }
+                else if((board["row-1-col-3"] == snapshot.val().Turn) && (board["row-2-col-3"] == snapshot.val().Turn) && (board["row-3-col-3"] == snapshot.val().Turn)){
+                    gameRef.update({
+                        Winner: snapshot.val().Turn,
+                        state: "action",
+                    })
+                    console.log("Win")
+                }
+                else if((board["row-1-col-1"] == snapshot.val().Turn) && (board["row-2-col-2"] == snapshot.val().Turn) && (board["row-3-col-3"] == snapshot.val().Turn)){
+                    gameRef.update({
+                        Winner: snapshot.val().Turn,
+                        state: "action",
+                    })
+                    console.log("Win")
+                }
+                else if((board["row-1-col-3"] == snapshot.val().Turn) && (board["row-2-col-2"] == snapshot.val().Turn) && (board["row-3-col-1"] == snapshot.val().Turn)){
+                    gameRef.update({
+                        Winner: snapshot.val().Turn,
+                        state: "action",
+                    })
+                    console.log("Win")
+                }
+                else if((board["row-1-col-1"] != "") && (board["row-1-col-2"] != "") && (board["row-1-col-3"] != "")&& (board["row-2-col-1"] != "")&&(board["row-2-col-2"] != "")&&(board["row-2-col-3"] != "")&&
+                (board["row-3-col-1"] != "")&&(board["row-3-col-2"] != "")&&(board["row-3-col-3"] != "")){
+                    boardRef.update({
+                        "row-1-col-1" :  "",
+                        "row-1-col-2" :  "",
+                        "row-1-col-3" :  "",
+                        "row-2-col-1" :  "",
+                        "row-2-col-2" :  "",
+                        "row-2-col-3" :  "",
+                        "row-3-col-1" :  "",
+                        "row-3-col-2" :  "",        
+                        "row-3-col-3" :  "",
+                    })
+                    gameRef.update({
+                        Turn:"O",
+                        state: "check",
+                    })
+                    console.log("Draw")
+                }
+            }
+        })
+    })
 }
 
-//resetAllGameAttribute
-function resetGame() {
-    board = ["", "", "", "", "", "", "", "", ""];
-    gameOver = false;
-    message.innerText = "";
-    for (let i = 0; i < 9; i++) {
-        document.getElementById(i).innerText = "";
-    }
-    attackBtn.disabled = true;
-	healBtn.disabled = true;
-    playerOHealth = 100;
-    playerXHealth = 100;
-    healthChange();
-    message.innerHTML="";
-    rouResult.innerHTML="";
-    onGoingTurn.innerHTML = "Turn: " + player;
-}
-
-//resetBoardAfterXOgame
-function resetBoard() {
-    board = ["", "", "", "", "", "", "", "", ""];
-    gameOver = false;
-    message.innerText = "";
-    for (let i = 0; i < 9; i++) {
-        document.getElementById(i).innerText = "";
-    }
-    attackBtn.disabled = true;
-	healBtn.disabled = true;
-    healthChange();
-    onGoingTurn.innerHTML = "Turn: " + player;
-}
-
-
-function healthChange() {
-	playerOHealthBar.style.width = playerOHealth + "%";
-	playerXHealthBar.style.width =  playerXHealth + "%";
-}
-
-function attackAction(){
-    if(winner == "O"){
-        console.log(winner, ": attack");
-        if((playerXHealth - 15) > 0){
-            playerXHealth -= 15;
-            console.log("playerX's Health = ", playerXHealth);
+// attack opponent
+const attackAction = document.getElementById("attackBtn");
+attackAction.addEventListener("click", function(){
+    console.log("Attack")
+    gameRef.once("value", (snapshot) =>{
+        var Winner = snapshot.val().Winner;
+        console.log("Opponent: ",opponent)
+        console.log("Opponent Health:",snapshot.val()[`player${opponent}Health`])
+        if(snapshot.val()[`Character${Winner}`] == "Knight"){
+            console.log("Player Choose Knight")
+            attackDmg = 20;
+            console.log("attack value: ", attackDmg)
+        }else if (snapshot.val()[`Character${Winner}`] == "Mage"){
+            console.log("Player Choose Mage")
+            attackDmg = 40;
+            console.log("attack value: ", attackDmg)
+        }else{
+            attackDmg = 15;
         }
-        else{
-            playerXHealth = 0;
-        } 
-    }
-    else if(winner == "X"){
-        console.log(winner, ": attack");
-        if((playerOHealth - 15) > 0){
-            playerOHealth -= 15;
-            console.log("playerO's Health = ", playerOHealth);
+        
+        let calculatedHealth = parseInt(snapshot.val()[`player${opponent}Health`]-attackDmg);
+        
+        if(opponent == 'X'){
+            if(calculatedHealth <= 0){
+                calculatedHealth = 0;
+                gameRef.update({
+                    playerXHealth: calculatedHealth,
+                    state: "end",
+                    Winner:"O",
+                    Turn:"O",
+                 })
+                 boardRef.update({
+                    "row-1-col-1" :  "",
+                    "row-1-col-2" :  "",
+                    "row-1-col-3" :  "",
+                    "row-2-col-1" :  "",
+                    "row-2-col-2" :  "",
+                    "row-2-col-3" :  "",
+                    "row-3-col-1" :  "",
+                    "row-3-col-2" :  "",        
+                    "row-3-col-3" :  "",
+                })
+            }else{
+                calculatedHealth = parseInt(snapshot.val()[`player${opponent}Health`]-attackDmg);
+                gameRef.update({
+                    playerXHealth: calculatedHealth,
+                    state: "check",
+                    Winner:"",
+                    Turn:"O",
+                 })
+                 boardRef.update({
+                    "row-1-col-1" :  "",
+                    "row-1-col-2" :  "",
+                    "row-1-col-3" :  "",
+                    "row-2-col-1" :  "",
+                    "row-2-col-2" :  "",
+                    "row-2-col-3" :  "",
+                    "row-3-col-1" :  "",
+                    "row-3-col-2" :  "",        
+                    "row-3-col-3" :  "",
+                })
+            }
+            
+             console.log("Player X reduce Health");
+        } else if(opponent == 'O'){
+            if(calculatedHealth <= 0){
+                calculatedHealth = 0;
+                gameRef.update({
+                    playerOHealth: calculatedHealth,
+                    state: "end",
+                    Winner:"X",
+                    Turn:"O",
+                 })
+                 boardRef.update({
+                    "row-1-col-1" :  "",
+                    "row-1-col-2" :  "",
+                    "row-1-col-3" :  "",
+                    "row-2-col-1" :  "",
+                    "row-2-col-2" :  "",
+                    "row-2-col-3" :  "",
+                    "row-3-col-1" :  "",
+                    "row-3-col-2" :  "",        
+                    "row-3-col-3" :  "",
+                })
+            }else{
+                calculatedHealth = parseInt(snapshot.val()[`player${opponent}Health`]-attackDmg);
+                gameRef.update({
+                    playerOHealth: calculatedHealth,
+                    state: "check",
+                    Winner:"",
+                    Turn:"O",
+                 })
+                 boardRef.update({
+                    "row-1-col-1" :  "",
+                    "row-1-col-2" :  "",
+                    "row-1-col-3" :  "",
+                    "row-2-col-1" :  "",
+                    "row-2-col-2" :  "",
+                    "row-2-col-3" :  "",
+                    "row-3-col-1" :  "",
+                    "row-3-col-2" :  "",        
+                    "row-3-col-3" :  "",
+                })
+            }
+            
+            console.log("Player O reduce Health");
         }
-        else{
-            playerOHealth = 0;
-        }        
-    }
-    healthChange();
-    resetBoard();
-    checkGamewinner();
-}
+        
+    })
+});
 
-function healAction(){
-    if(winner == "X"){
-        console.log(winner, ": heal");
-        if((playerXHealth + 5) > 100){
+// heal player
+const healAction = document.getElementById("healBtn");
+healAction.addEventListener("click",  function(){
+    console.log("Heal")
+    gameRef.once("value", (snapshot) =>{
+        var Winner = snapshot.val().Winner;
+        if(snapshot.val()[`Character${Winner}`] == "Knight"){
+            console.log("Player Choose Knight")
+            healValue = 20;
+            console.log("Heal: ", healValue)
+        }else if (snapshot.val()[`Character${Winner}`] == "Mage"){
+            console.log("Player Choose Mage")
+            healValue = 10;
+            console.log("Heal: ", healValue)
+        }else{
+            healValue = 15;
         }
-        else if((playerXHealth + 5) <= 100){
-            playerXHealth += 5;
+        let calculatedHealth = parseInt(snapshot.val()[`player${snapshot.val().Winner}Health`]+healValue);
+        if(snapshot.val().Winner == 'X'){
+            if (calculatedHealth > 100){
+                calculatedHealth = 100;
+            } else{
+                calculatedHealth = parseInt(snapshot.val()[`player${snapshot.val().Winner}Health`]+healValue);
+            }
+            gameRef.update({
+                playerXHealth: calculatedHealth,
+                state: "check",
+                Winner:"",
+                Turn:"O",
+             })
+             boardRef.update({
+                "row-1-col-1" :  "",
+                "row-1-col-2" :  "",
+                "row-1-col-3" :  "",
+                "row-2-col-1" :  "",
+                "row-2-col-2" :  "",
+                "row-2-col-3" :  "",
+                "row-3-col-1" :  "",
+                "row-3-col-2" :  "",        
+                "row-3-col-3" :  "",
+             })
+             console.log("Player X reduce Health");
+        } else if(snapshot.val().Winner == 'O'){
+            if (calculatedHealth > 100){
+                calculatedHealth = 100;
+            } else{
+                calculatedHealth = parseInt(snapshot.val()[`player${snapshot.val().Winner}Health`]+healValue);
+            }
+            gameRef.update({
+                playerOHealth: calculatedHealth,
+                state: "check",
+                Winner:"",
+                Turn:"O",
+            })
+            boardRef.update({
+                "row-1-col-1" :  "",
+                "row-1-col-2" :  "",
+                "row-1-col-3" :  "",
+                "row-2-col-1" :  "",
+                "row-2-col-2" :  "",
+                "row-2-col-3" :  "",
+                "row-3-col-1" :  "",
+                "row-3-col-2" :  "",        
+                "row-3-col-3" :  "",
+             })
+            console.log("Player O reduce Health");
         }
-        console.log(winner, ": ", playerXHealth);   
-    }
-    else if(winner == "O"){
-        console.log(winner, ": heal");
-        if((playerOHealth + 5) > 100){
-        }  
-        else if((playerOHealth + 5) <= 100){
-            playerOHealth += 5;
-        } 
-        console.log(winner, ": ", playerOHealth);    
-    }
-    healthChange();
-    resetBoard();
-}
+    })
+});
 
-function checkGamewinner(){
-    healthChange();
-    if(playerOHealth == "0"){
-        gameOver = true;
-        rouResult.innerHTML = "X Wins!!";
-    }
-    else if(playerXHealth == "0"){
-        gameOver = true;
-        rouResult.innerHTML = "O Wins!!";
-    }
-}
+
+//damage both player
+// const killAction = document.getElementById("killBtn")
+// killAction.addEventListener("click", function(){
+//     gameRef.once("value", (snapshot) => {
+//         gameRef.update({
+//             playerOHealth: 10,
+//             playerXHealth: 10,
+//         })
+//     })
+// })
+
+
+//reset board
+// const resetBtn = document.getElementById("resetBtn");
+// resetBtn.addEventListener("click", function(){
+//     boardRef.update({
+//         "row-1-col-1" :  "",
+//         "row-1-col-2" :  "",
+//         "row-1-col-3" :  "",
+//         "row-2-col-1" :  "",
+//         "row-2-col-2" :  "",
+//         "row-2-col-3" :  "",
+//         "row-3-col-1" :  "",
+//         "row-3-col-2" :  "",        
+//         "row-3-col-3" :  "",
+//     })
+//     gameRef.update({
+//         Turn:"O",
+//         Winner:"",
+//         state:"check",
+//         playerOHealth:100,
+//         playerXHealth:100,
+//     })
+// })

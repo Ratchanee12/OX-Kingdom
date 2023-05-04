@@ -133,10 +133,8 @@ roomData.on("value", (snapshot) => {
         console.log("snapshot",snapshot.val());
         console.log(snapshot.val().CharacterO);
         console.log(snapshot.val().CharacterX);
-        //check if both player choose a character if yes thats mean they are ready
         if(snapshot.val().CharacterX && snapshot.val().CharacterO){
             if (snapshot.val().CharacterO != "" && snapshot.val().CharacterX != ""){
-                //begin Count Down
                 clearInterval(cd);
                 cd = setInterval(countdowns,1000);
             } 
@@ -198,7 +196,6 @@ function checkReady(){
         if (snapshot.val().CharacterO != "" && snapshot.val().CharacterX != ""){
             playerReady = true;
             console.log("Both Player Ready");
-           // window.location = `Tictactoe.html?roomid=${getRoom}`;
         }
     });
 }
@@ -218,7 +215,6 @@ function countdowns () {
             GameEnd: "",
             HaveWinner: false,
             LastClick: "",
-            // [FIXED] บังคับให้เกมแรกเป็น O เลย
             Turn: "O",
             Winner: "",
             state: "",
@@ -227,6 +223,6 @@ function countdowns () {
         })
         clearInterval(cd);
         console.log('Change HTML Page')
-        window.location = `TestTictactoe.html?roomid=${urlParams.get("roomid")}`;
+        window.location = `Tictactoe.html?roomid=${urlParams.get("roomid")}`;
     }
 }

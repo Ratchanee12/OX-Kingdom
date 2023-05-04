@@ -33,7 +33,6 @@ let addList = (uid) =>{
     let username = signupForm["username-signup"].value;
     console.log("1 Username: ", username);
     let currentUser = firebase.auth().currentUser;
-    // userListRef.child(currentUser.uid).update({
     userListRef.child(uid).update({
         username: username,
         email: currentUser.email,
@@ -75,7 +74,6 @@ function loginUser(event) {
 
             loginFeedback.style = "color: green";
             loginFeedback.innerHTML = "<i class='bi bi-check-circle-fill'></i> login succeed!.";
-            // set new page
             localStorage.setItem("current-user",user);
             console.log(user);
 

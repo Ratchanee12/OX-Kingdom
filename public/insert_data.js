@@ -48,14 +48,10 @@ let setupUI = (user) =>{
     if (user){
         loginItems.forEach((item) => (item.style.display = "inline-block"));
         logoutItems.forEach((item) => (item.style.display = "none"));
-
     } else{
         loginItems.forEach((item) => (item.style.display = "none"));
         logoutItems.forEach((item) => (item.style.display = "inline-block"));
     }
-    //document.querySelector('.rounded-circle').src = user.photoURL;
-    //document.querySelector('#userName').innerText = user.displayName;
 }
 
 const createAccount = document.querySelector("#createAccountBtn");
-// createAccount.addEventListener("click", addList);

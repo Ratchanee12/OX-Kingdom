@@ -5,7 +5,6 @@ const userListRef = firebase.database().ref("UserList")
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         console.log("User :", user);
-        // console.log("User email:", user.email);
         getList(user);
     } else {
         console.log("User not found");
@@ -19,14 +18,12 @@ btnLogout.addEventListener("click", function () {
     window.location.assign("index.html");
 })
 
-// Setup UI
 const logoutItems = document.querySelectorAll('.logged-out');
 const loginItems = document.querySelectorAll('.logged-in');
 
 let getList = (user) => {
     if (user) {
         userListRef.child(user.uid).on("value", (snapshot) => {
-            // readList();
             console.log(snapshot.val());
             console.log("Username: ",snapshot.val().username);
             let currentUsername = snapshot.val().username;

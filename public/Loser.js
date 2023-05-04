@@ -9,9 +9,7 @@ const roomUid = `${urlParams.get("roomid")}`;
 
 const userList = firebase.database().ref("UserList");
 
-
 const roomRef = firebase.database().ref("RoomList");
-
 
 const winnerdisplay = document.getElementById("winner");
 
@@ -24,10 +22,8 @@ const displaygameWin = document.getElementById("gameWin");
 var gameWinner;
 var oppositegameWinner;
 
-// ที่พี่ใช้ once ก็เพราะว่า เราแค่แสดงผลครั้งเดียว ไม่ได้มีการเปลี่ยนแปลงค่า แล้วจะต้องอัปเดต ถูกมะ เลยคิดว่าใช้ once นี่แหละก็พอละ
 gameRef.once("value", (snapshot) => {
     gameWinner = snapshot.val().Winner;
-    // [FIXED] ลืม ==
     oppositegameWinner = gameWinner == 'O' ? 'X' : 'O';
     console.log(snapshot.val().Winner)
     console.log("Game Winner: ",snapshot.val()[`User${snapshot.val().Winner}`])
@@ -59,25 +55,18 @@ playAgain.addEventListener("click", function(){
     console.log("Loser Clicked!");
     gameRef.once("value",(snapshot) =>{
         gameWinner = snapshot.val().Winner;
-        // [FIXED] ลืม == และเราเขียนชื่อผิดมันต้อง gameWinner ไม่ใช่ gamewinner
         oppositegameWinner = gameWinner == 'O' ? 'X' : 'O';
         const currentUser = firebase.auth().currentUser.uid
         const checkPlayer = snapshot.val()[`User${oppositegameWinner}`]
-        // if(currentUser == checkPlayer){
             gameRef.update({
                 Turn:"O",
                 Winner:"",
-                // [FIXED] ป้องกันการที่เมื่อผู้เล่นกดกลับห้องไปแล้ว แต่ผู้เล่นยังไม่ได้กด ผู้เล่นของอีกห้องจะโดนดึงไปเข้าสู่ห้องเล่นเกมเหมือนเดิม เชื่อมโยง choosecharacter.js บรรทัด 129
                 state:"reset",
                 playerOHealth:100,
                 playerXHealth:100,
-                // [FIXED] ตรงนี้เราเซ็ตมันให้เป็นค่าเริ่มต้นเลยก็ได้ครับ เพราะยังไงมันก็จะต้องรีเซ็ตห้องใหม่อยู่ดี ป้องกันอีกคนที่ยังไม่ได้กด play agian หรือ return to lobby
-                // [`Character${oppositegameWinner}`]: "",
                 CharacterX: "",
                 CharacterO: "",
             })
-        // }
-        // [FIXED] พี่สั่งให้มันดีไลย์ 1 วิ เพราะบางที firebase มันอัปเดตค่าไม่ทัน
         setTimeout(() =>{
             window.location = `choosecharacter.html?roomid=${urlParams.get("roomid")}`;
         }, 1000)
@@ -88,7 +77,6 @@ const leaveBtn = document.getElementById("leaveBtn")
 leaveBtn.addEventListener("click", function(){
     gameRef.once("value",(snapshot) =>{
         gameWinner = snapshot.val().Winner;
-        // [FIXED] ลืม ==
         oppositegameWinner = gameWinner == 'O' ? 'X' : 'O';
         const currentUser = firebase.auth().currentUser.uid
         const checkPlayer = snapshot.val()[`User${oppositegameWinner}`]
@@ -99,7 +87,6 @@ leaveBtn.addEventListener("click", function(){
             gameRef.update({
                 [`User${oppositegameWinner}`]: "", 
             })
-            
         }
     })
 });
