@@ -178,3 +178,59 @@ button:hover {
     cursor: pointer;
     filter: saturate(50%);
 }
+/* Ipad Responsive */
+@media all and (max-width:1000px) {
+    #playerXHealth{
+        width: 80%;
+    }
+    #playerOHealth{
+        width: 80%;
+    }
+    #PlayerO{
+        padding-right: 25%;
+    }
+    #GameState{
+        padding-top: 5%;
+    }
+    #gameTable{
+        top: 90%;
+        width: 60%;
+        height: 50%;
+    }
+    .buttons{
+        top: 125%;
+        gap: 50px;
+        padding-right: 5%;
+    }
+    #attackBtn{
+        width: 25vw;
+        height: 7vh;
+    }
+    #healBtn{
+        width: 25vw;
+        height: 7vh;
+    }
+}
+/* Iphone Responsive */
+@media all and (max-width:500px) {
+    #playerXHealth{
+        width: 80%;
+    }
+    #playerOHealth{
+        width: 80%;
+    }
+    #PlayerX{
+        padding-left: 10%;
+    }
+    #gameTable{
+        top: 90%;
+        width: 60%;
+        height: 50%;
+    }
+    .buttons{
+        top: 125%;
+        gap: 50px;
+        padding-right: 6%;
+    }
+}
+
