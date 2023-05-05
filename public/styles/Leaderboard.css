@@ -1,12 +1,18 @@
 body{
     background-image: url('https://github.com/Ratchanee12/OX-Kingdom/raw/63070149/public/Picture/Winner.png');
     background-repeat: no-repeat;
-    background-attachment: fixed; 
-    background-size: 100% 100%;
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
     position: relative;
     font-family: 'Inter', sans-serif;
 }
+
+.container {
+    height: 100vh;
+}
+
 #returnPage{
+    height: fit-content;
     font-family: 'Playfair Display', serif;
     margin-top: 30px;
 }
@@ -19,6 +25,8 @@ body{
     height: 100px;
 }
 #LaederboardBox {
+    margin-top: calc(-(100vh / 10));
+
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -33,7 +41,6 @@ body{
     /* Note: backdrop-filter has minimal browser support */
 
     border-radius: 24px;
-    margin-top: 20px;
     /* Inside auto layout */
 
     flex: none;
@@ -50,4 +57,5 @@ body{
 .board {
     display: flex;
     justify-content: center;
+    height: 100%;
 }
