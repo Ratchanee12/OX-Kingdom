@@ -86,3 +86,14 @@ body{
 .nameplaceholder::placeholder{
     color: #f9ab57;
 }
+
+/* Iphone Responsive */
+@media all and (max-width:500px) {
+    #lobby{
+        width: 85%;
+    }
+    #room{
+        width: 85%;
+        height: 50%;
+    }
+}

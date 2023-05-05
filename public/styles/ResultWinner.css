@@ -73,7 +73,7 @@ color: #F3AF77;
 }
 #Title{
     color: #F3AF77;
-    margin-top: 120px;
+    padding-top: 120px;
 }
 #winner{
   color: #F3AF77;
@@ -124,4 +124,23 @@ order: 0;
 align-self: stretch;
 flex-grow: 0;
 color: #F3AF77;
+}
+
+/* Iphone Responsive */
+@media all and (max-width:500px) {
+  #ShowResultWin{
+    width: 85%;
+  }
+  #AllBtn{
+    width: 85%;
+  }
+  #leaveBtn{
+    width: 130px;
+    height: 70px;
+    padding: 10px;
+  }
+  #playagainBtn{
+    width: 130px;
+    height: 70px;
+  }
 }

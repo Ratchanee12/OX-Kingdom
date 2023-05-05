@@ -94,7 +94,7 @@
     align-items: center; /* Center all child elements horizontally */
     padding-top: 12px;
     padding-bottom: 12px;
-    top: 58%; /* Position the element 50% from the top */
+    top: 65%; /* Position the element 50% from the top */
     left: 53%; /* Position the element 50% from the left */
     transform: translate(-60%, -50%); /* Offset the element by half of its width and height to center it */
 
