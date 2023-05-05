@@ -59,3 +59,12 @@ body{
     justify-content: center;
     height: 100%;
 }
+/* Iphone Responsive */
+@media all and (max-width:500px) {
+    #LaederboardBox{
+        width: 85%;
+    }
+    .rank, .name, .gamewin{
+        font-size: 16px;
+    }
+}

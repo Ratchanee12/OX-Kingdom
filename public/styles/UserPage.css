@@ -92,3 +92,48 @@ body {
     display: flex;
     align-items: center;
 }
+
+/* Ipad Responsive */
+@media all and (max-width:1000px) {
+    #allpage{
+        width: 90%;
+    }
+    .menu{
+        width: 85%;
+    }
+    #card{
+        height: 200px;
+    }
+    .profile-container{
+        display: none;
+    }
+    #Hero{
+        display: none;
+    }
+    #btnLogout{
+        margin-top: 0px;
+    }
+}
+
+/* Iphone Responsive */
+@media all and (max-width:500px) {
+    #allpage{
+        width: 85%;
+    }
+    #Hero{
+        display: none;
+    }
+    .menu{
+        width: 85%;
+    }
+    #card{
+        height: 200px;
+    }
+    #KonPic{
+        display: none;
+    }
+    #btnLogout{
+        margin-top: 0px;
+    }
+}
+

@@ -229,3 +229,36 @@ p.m-0 {
 .form-input input{
     color:rgb(227, 198, 81);
 }
+
+/* Iphone Responsive */
+@media all and (max-width:500px) {
+    #box-signup{
+        width: 90%;
+        height: 105%;
+        bottom: 5%;
+        gap: 0px;
+        padding: 15px;
+    }
+    #signup-f{
+        gap: 40px;
+    }
+    #Wel{
+        padding-left: 15%;
+    }
+    .form-input{
+        width: 85%;
+    }
+    #username-signup, #email-signup, #password-signup{
+        width: 85%;
+    }
+    .title{
+        font-size: 16px;
+    }
+    #createAccountBtn, #loginAg{
+        width: 250px;
+        height: 40px;
+        font-size: 10px;
+        padding: 5px;
+
+    }
+}

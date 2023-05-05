@@ -60,3 +60,18 @@ body{
 img{
     width: 350px;
 }
+
+@media all and (max-width:500px) {
+    .count{
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    img{
+        width: 150px;
+    }
+    #PlayercharacterX{
+        color: #F3AF77;
+    }
+}
