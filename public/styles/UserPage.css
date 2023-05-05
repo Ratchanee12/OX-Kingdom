@@ -1,35 +1,59 @@
-body{
+body {
     background-image: url('https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/User%20Page.png');
     background-repeat: no-repeat;
-    background-attachment: fixed; 
+    background-attachment: fixed;
     background-size: 100% 100%;
     position: relative;
     font-family: 'Inter', sans-serif;
 }
+
 .container {
     display: flex;
     padding-top: 50px;
     justify-content: center;
     align-items: center;
     color: white;
+    height: 100vh;
+    padding: 0;
 }
+
+.main {
+    height: 100%;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
 #PicLogo {
     width: 300px;
     height: 50px;
 }
+
 #Hero {
-    width: 680px;
-    height: 680px;
-    margin-top: 20px;
-    margin-left: 20%;
-    
+    height: 80vh;
+    padding-left: 10%;
 }
+
 #card {
-    background-color: rgb(225, 225, 225);
+    background: radial-gradient(50% 50% at 50% 50%, #B09B8B 0%, #887053 100%);
+    border-radius: 12px;
     color: black;
     padding: 10px;
     margin-top: 30px;
 }
+
+.card-container {
+    height: fit-content !important;
+}
+
 #PlayBtn, #leaderboardBtn, #myHero, #settingBtn {
     font-family: 'Playfair Display', serif;
     width: 300px;
@@ -40,11 +64,31 @@ body{
     font-size: 20pt;
     text-align: left;
 }
+
+.btn:hover {
+    box-shadow: 0px 0px 16px 0px rgba(243, 175, 119, 1);
+    transition: 0.5s;
+}
+
 #btnLogout {
-  width: 100px;
-  height: 50px;
-  color: #f9ab57;
-  border-radius: 20px;
-  border-color: #fbc790;
-  margin-top: 50px;
+    width: 100px;
+    height: 50px;
+    color: #f9ab57;
+    border-radius: 20px;
+    border-color: #fbc790;
+    margin-top: 50px;
+}
+
+#btnLogout:hover {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.hero-container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
 }

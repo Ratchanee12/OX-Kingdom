@@ -1,92 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>OX-Kingdom</title>
+    <title>OX-Kingdom</title>
 
-  <!-- Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-  <!-- Playfair Display -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <!-- Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <!-- Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-        crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-          crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
-  <!-- add link to custom CSS -->
-  <link rel="stylesheet" href="styles/UserPage.css">
+    <!-- add link to custom CSS -->
+    <link rel="stylesheet" href="styles/UserPage.css">
 </head>
 
 <body>
-  <div class="container logged-in">
-    <div class="row">
-      <div class="col-4">
-        <image id="PicLogo" src="Picture/LogoOX.png"></image>
-        <div class="card mb-3" id="card" style="max-width: 540px;">
-          <div class="row g-0">
-            <div class="col-md-4" style="margin-top: 8%;">
-              <img src="https://cdn-icons-png.flaticon.com/512/552/552721.png" class="img-fluid rounded-start">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">Welcomeback</h5>
-                <h3 class="card-text" id="user-profile-name"></h3>
-                <div class="d-flex d-inline-block h-auto">
-                  <img src="Picture/win.png">&nbsp;&nbsp;
-                  <p id="user-win">xx</p>
+<div class="container logged-in">
+    <div class="main row">
+        <div class="menu col-4">
+            <image id="PicLogo" src="Picture/LogoOX.png"></image>
+            <div class="card mb-3" id="card" style="max-width: 540px;">
+                <div class="row g-0 card-container">
+                    <div class="profile-container col-md-4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/552/552721.png"
+                             class="img-fluid rounded-start">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Welcomeback</h5>
+                            <h3 class="card-text" id="user-profile-name"></h3>
+                            <div class="d-flex d-inline-block h-auto">
+                                <img src="Picture/win.png">&nbsp;&nbsp;
+                                <p id="user-win">xx</p>
+                            </div>
+                            <div class="d-flex d-inline-block h-auto">
+                                <img src="Picture/coin.png" id="user-profile-coin">&nbsp;&nbsp;
+                                <p id="user-coin">xxxx</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="d-flex d-inline-block h-auto">
-                  <img src="Picture/coin.png" id="user-profile-coin">&nbsp;&nbsp;
-                  <p id="user-coin">xxxx</p>
-                </div>
-              </div>
             </div>
-          </div>
+            <div class="menu-buttons">
+                <button class="btn" id="PlayBtn" onclick="window.location='Lobby.html';">♦ PLAY</button>
+                <button class="btn" id="leaderboardBtn" onclick="window.location='Leaderboard.html';">♦ LEADERBOARD
+                </button>
+                <button class="btn" id="myHero" onclick="window.location='MyHero.html';">♦ MY HERO</button>
+                <button class="btn" id="settingBtn" onclick="window.location='Settings.html';">♦ SETTINGS</button>
+                <br>
+                <button type="button" id="btnLogout" class="btn btn-outline-light">
+                    <i class="bi bi-box-arrow-right logged-in" id="btnLogout"></i> Logout
+                </button>
+            </div>
         </div>
-        <button class="btn" id="PlayBtn" onclick="window.location='Lobby.html';">♦ PLAY</button><br>
-        <button class="btn" id="leaderboardBtn" onclick="window.location='Leaderboard.html';">♦ LEADERBOARD</button><br>
-        <button class="btn" id="myHero" onclick="window.location='MyHero.html';">♦ MY HERO</button><br>
-        <button class="btn" id="settingBtn" onclick="window.location='Settings.html';">♦ SETTINGS</button><br>
-        <button type="button" id="btnLogout" class="btn btn-outline-light" >
-          <i class="bi bi-box-arrow-right logged-in" id="btnLogout"></i> Logout
-        </button>
-      </div>
-      <div class="col-8">
-         <img id="Hero" src="https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/Hero.png">
-      </div>
+        <div class="hero-container col-8">
+            <img id="Hero" src="https://raw.githubusercontent.com/Ratchanee12/OX-Kingdom/main/Picture/Hero.png">
+        </div>
     </div>
-  </div>
-  
-  <script>
+</div>
+
+<script>
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
-      apiKey: "AIzaSyCwvd9LqYBKQWcML7wm7NrpJpt2VodOR2Q",
-      authDomain: "oxkingdom-1028e.firebaseapp.com",
-      databaseURL: "https://oxkingdom-1028e-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "oxkingdom-1028e",
-      storageBucket: "oxkingdom-1028e.appspot.com",
-      messagingSenderId: "411804462751",
-      appId: "1:411804462751:web:255e336c15569b7a53bcaa",
-      measurementId: "G-8GH3DQSQ6H"
+        apiKey: "AIzaSyCwvd9LqYBKQWcML7wm7NrpJpt2VodOR2Q",
+        authDomain: "oxkingdom-1028e.firebaseapp.com",
+        databaseURL: "https://oxkingdom-1028e-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "oxkingdom-1028e",
+        storageBucket: "oxkingdom-1028e.appspot.com",
+        messagingSenderId: "411804462751",
+        appId: "1:411804462751:web:255e336c15569b7a53bcaa",
+        measurementId: "G-8GH3DQSQ6H"
     };
     firebase.initializeApp(firebaseConfig)
-  </script>
-  <script src="UserPage.js"></script>
+</script>
+<script src="UserPage.js"></script>
 </body>
 </html>
